@@ -20,13 +20,31 @@ app = FastAPI()
 templates = Jinja2Templates(directory="../frontend")
 
 # Mount the "static" directory to serve static files like CSS and JavaScript
-app.mount("/static", StaticFiles(directory="../frontend/static"), name="static")
+app.mount("/static", StaticFiles(directory="../frontend/assets"), name="static")
 
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     # Render the home.html template
     return templates.TemplateResponse("index.html", {"request": request})
+
+@app.get("/practice", response_class=HTMLResponse)
+async def home(request: Request):
+    # Render the home.html template
+    return templates.TemplateResponse("practice.html", {"request": request})
+
+@app.get('/about',response_class=HTMLResponse)
+async def about(request: Request):
+    return templates.TemplateResponse('about.html', {"request": request})
+
+@app.get('/profile',response_class=HTMLResponse)
+async def about(request: Request):
+    return templates.TemplateResponse('profile.html', {"request": request})
+
+@app.get('/testimonials',response_class=HTMLResponse)
+async def about(request: Request):
+    return templates.TemplateResponse('testimonials.html', {"request": request})
+
 
 # @app.get("/game", response_class=HTMLResponse)
 # async def read_game(request: Request):

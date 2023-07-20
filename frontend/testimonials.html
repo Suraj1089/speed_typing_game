@@ -8,9 +8,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- Linking assets -->
-        <link rel="stylesheet" href="./assets/css/testimonials.css">
+        <link rel="stylesheet" href="{{ url_for('static', path='/css/testimonials.css') }}">
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="stylesheet" href="assets/css/index.css">
+        <link rel="stylesheet" href="{{ url_for('static', path='/css/index.css') }}">
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
         <!-- Title -->
         <title>Typing Test</title>
@@ -23,21 +23,18 @@
             <div class="navbar">
                 <!-- Website Brand/Logo -->
                 <div class="brand">
-                    <a href="./index.html" class="brand-name">Typing Test</a>
+                    <a href="/" class="brand-name">Typing Test</a>
                 </div>
                 <!-- Navigation Menu -->
                 <div class="navigation">
                     <ul class="main-menu">
-                        <li class="nav-item"><a href="practice.html" class="nav-item-link"><i class="fas fa-keyboard"></i> Practice</a></li>
-                        <li class="nav-item"><a href="about.html" class="nav-item-link"><i class="fas fa-info-circle"></i> About</a></li>
-                        <li class="nav-item"><a href="profile.html" class="nav-item-link"><i class="fas fa-user"></i> Profile</a></li>
+                        <li class="nav-item"><a href="/practice" class="nav-item-link"><i class="fas fa-keyboard"></i> Practice</a></li>
+                        <li class="nav-item"><a href="/about" class="nav-item-link"><i class="fas fa-info-circle"></i> About</a></li>
+                        <li class="nav-item"><a href="/profile" class="nav-item-link"><i class="fas fa-user"></i> Profile</a></li>
                     </ul>
                 </div>
 
                 <!-- Github Repostitory Link -->
-                <div class="github-icon">
-                    <a href="https://github.com/arpitghura/typing-test" class="nav-item-link"><i class='bx bx-sm bxl-github'></i></a>
-                </div>
                 
                 <!-- Mobile Navigation Menu -->
                 <div class="mobile-nav">
@@ -70,7 +67,7 @@
                             <i class="fa fa-star" aria-hidden="true"></i>
                             <i class="fa fa-star-o" aria-hidden="true"></i>
                         </div>
-                        <img src="./assets/images/user-1.png" alt="">
+                        <img src="{{ url_for('static', path='/images/user-1.png') }}" alt="">
                         <h3>Sean Parker</h3>
                     </div>
                     
@@ -85,7 +82,7 @@
                             <i class="fa fa-star" aria-hidden="true"></i>
                             <i class="fa fa-star-o" aria-hidden="true"></i>
                         </div>
-                        <img src="./assets/images/user-2.png" alt="">
+                        <img src="{{ url_for('static', path='/images/user-2.png') }}" alt="">
                         <h3>Mike Smith</h3>
                     </div>
                     
@@ -100,7 +97,7 @@
                             <i class="fa fa-star" aria-hidden="true"></i>
                             <i class="fa fa-star-o" aria-hidden="true"></i>
                         </div>
-                        <img src="./assets/images/user-3.png" alt="">
+                        <img src="{{ url_for('static', path='/images/user-3.png') }}" alt="">
                         <h3>Mabel Joe</h3>
                     </div>
                 </div>
@@ -111,14 +108,11 @@
         <!-- Footer -->
         <footer>
             <!-- Copyright -->
-            <p>
-                Made with &hearts; by Arpit Ghura. All Rights Reserved &copy; <span id="copyright"></span>
-            </p>
+          
         </footer>
         <!-- End of Footer -->
 
         <!-- Scripts -->
-        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
-        <script src="assets/js/index.js"></script>
+        <script src="{{ url_for('static', path='/js/index.js') }}"></script>
     </body>
 </html>

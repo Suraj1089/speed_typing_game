@@ -8,11 +8,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- Linking Assets -->
-        <link rel="shortcut icon" href="assets/images/timer.png" type="image/x-icon">
-        <link rel="stylesheet" href="assets/css/index.css">
-        <link rel="stylesheet" href="assets/css/profile.css">
-        <link rel="stylesheet" href="assets/css/practice.css">
-        <link rel="stylesheet" href="assets/css/dark.css">
+        <link rel="shortcut icon" href="{{ url_for('static', path='/images/timer.png') }}" type="image/x-icon">
+        <link rel="stylesheet" href="{{ url_for('static', path='/css/index.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', path='/css/profile.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', path='/css/practice.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', path='/css/dark.css') }}">
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
         
@@ -28,23 +28,21 @@
             <div class="navbar">
                 <!-- Website Brand/Logo -->
                 <div class="brand">
-                    <a href="./index.html" class="brand-name">Typing Test</a>
+                    <a href="/" class="brand-name">Typing Test</a>
                 </div>
 
                 <!-- Navigation Menu -->
                 <div class="navigation">
                     <ul class="main-menu">
-                        <li class="nav-item"><a href="practice.html" class="nav-item-link"><i class="fas fa-keyboard"></i> Practice</a></li>
-                        <li class="nav-item"><a href="about.html" class="nav-item-link"><i class="fas fa-info-circle"></i> About</a></li>
-                        <li class="nav-item"><a href="profile.html" class="nav-item-link"><i class="fas fa-user"></i> Profile</a></li>
+                        <li class="nav-item"><a href="/practice" class="nav-item-link"><i class="fas fa-keyboard"></i> Practice</a></li>
+                        <li class="nav-item"><a href="/about" class="nav-item-link"><i class="fas fa-info-circle"></i> About</a></li>
+                        <li class="nav-item"><a href="/profile" class="nav-item-link"><i class="fas fa-user"></i> Profile</a></li>
                     </ul>
                 </div>
 
                 <div class="nav-right">
                     <!-- Github Repo Link -->
-                    <div class="github-icon">
-                        <a href="https://github.com/arpitghura/typing-test" class="nav-item-link"><i class='bx bx-sm bxl-github'></i></a>
-                    </div>
+                
 
                     <!-- Dark mode button -->
                     <i id="icon1" onclick="toggleLightDarkMode()" class="bx bx-moon dark-btn" style="font-size: x-large;"></i>
@@ -115,19 +113,15 @@
 
         <!-- Footer -->
         <footer>
-            <!-- Copyright -->
-            <p>
-                Made with &hearts; by Arpit Ghura. All Rights Reserved &copy; <span id="copyright"></span>
-            </p>
+           
         </footer>
         <!-- End of Footer -->
 
 
         <!-- Scripts -->
-        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
-        <script src="assets/js/profile.js"></script>
-        <script src="assets/js/index.js"></script>
-        <script src="assets/js/dark.js"></script>
+        <script src="{{ url_for('static', path='/js/profile.js') }}"></script>
+        <script src="{{ url_for('static', path='/js/index.js') }}"></script>
+        <script src="{{ url_for('static', path='/js/dark.js') }}"></script>
 
     </body>
 </html>
