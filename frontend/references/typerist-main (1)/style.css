@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: 0;
+    font-family: 'Roboto Mono', monospace;
+}
+
+body {
+    background-color: #0F0F0F;
+}
+
+.inner-container {
+    background-color: #262626;
+    color: white;
+    font-size: 0.98rem;
+    transition: 0.5s;
+    min-width: 650px;
+    max-width: 650px;
+}
+
+.inner-container input[type=text] {
+    margin-right: 15px;
+    font-size: 1rem;
+    color: white;
+    background-color: black;
+    border: 1px solid rgba(255, 255, 255, 0.075);
+    transition: 0.4s;
+}
+
+.inner-container input[type=text]:focus {
+    border: 1px solid white;
+}
+
+.inner-container button {
+    border: 1px solid rgba(255, 255, 255, 0.158);
+    background-color: #0F0F0F;
+}
+
+.inner-container button:focus {
+    box-shadow: inset 0 1px 1px #0F0F0F, 0 0 8px #0F0F0F;
+}
+
+.form-control:focus {
+    border-color: #0F0F0F;
+    box-shadow: inset 0 1px 1px #0F0F0F, 0 0 8px #0F0F0F;
+}
+
+.result-container {
+    transition: 0.5s;
+    opacity: 0;
+}
+
+span {
+    display: inline-block;
+    padding-bottom: 2px;
+    transition: 0.2s;
+}
+
+nav a {
+    font-size: 1.7rem;
+    text-decoration: none;
+}
+
+nav p {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.75rem;
+}
+
+#result-container p {
+    color: #4f4f4f;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.wordcount-selector p {
+    color: #4f4f4f;
+}
+
+.selected-count {
+    color: #C6A45A;
+}
+

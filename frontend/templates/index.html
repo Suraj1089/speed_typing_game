@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Speed Typing Game - Practice Mode</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Speed Typing Game</h1>
+        <div class="options">
+            <label for="difficulty">Select Difficulty:</label>
+            <select id="difficulty">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+
+            <label for="duration">Select Duration (seconds):</label>
+            <input type="number" id="duration" min="10" max="180" step="10" value="60">
+
+            <button onclick="startGame()">Start Game</button>
+        </div>
+        <div class="game" id="gameSection">
+            <p id="textToType"></p>
+            <input type="text" id="userInput" disabled>
+            <button onclick="submitResult()" id="submitButton" disabled>Submit</button>
+            <p id="resultMessage"></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
