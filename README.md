@@ -52,6 +52,10 @@ Created by surajpisal113@gmail.com
 
 
 # References
+for database connection
+* https://www.mongodb.com/developer/languages/python/python-quickstart-fastapi/
+
+for frontend(ui)
 * https://github.com/sayantanm19/js-simple-typing-game
 * https://codingartistweb.com/2021/11/typing-test-with-html-css-javascript/#google_vignette
 * https://www.codingnepalweb.com/typing-speed-test-game-html-javascript/
@@ -61,3 +65,5 @@ Created by surajpisal113@gmail.com
 * https://github.com/TecEash1/TypingTest-Website
 * https://github.com/NoelEmaas/typerist
 * https://github.com/trombonist76/redux-fastest-fingers
+
+for backend
