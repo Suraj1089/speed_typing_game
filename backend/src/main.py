@@ -45,6 +45,12 @@ async def about(request: Request):
 async def about(request: Request):
     return templates.TemplateResponse('testimonials.html', {"request": request})
 
+@app.get('/practice/typing',response_class=HTMLResponse)
+async def about(request: Request):
+    return templates.TemplateResponse('typing.html', {"request": request})
+
+
+
 
 # @app.get("/game", response_class=HTMLResponse)
 # async def read_game(request: Request):

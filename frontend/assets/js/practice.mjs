@@ -14,7 +14,7 @@ const userHeader = document.getElementById("user-header");
 const onemin = document.getElementById("onemin");
 const twomin = document.getElementById("twomin");
 const fivemin = document.getElementById("fivemin");
-
+const startBtn2 = document.getElementById("startBtn2");
 // import functions
 import { makeSentence } from './sentence.mjs'
 
@@ -30,7 +30,6 @@ userInputBox.style.display = 'none';
 messages.style.display = 'none';
 resetBtn.style.display = 'none';
 startBtn.style.display = 'none';
-startInstruction.style.display = 'none';
 
 // initializing variables
 let extracted_words = [];
@@ -42,6 +41,77 @@ let selectedDifficultyLevel = "";
 let selectedTime = 0;
 let char_you_typed = 0
 let characters;
+
+startBtn2.addEventListener("click", () => {
+    // getting quote and time
+    const quote = makequote()
+    
+    // get time choosed by user and convert it into milliseconds
+    const time = getTime() * 60 * 1000;
+
+    // splitting quote into words
+    extracted_words = quote.split(' ');
+    extracted_words_length = extracted_words.length;
+    wordIndex = 0;
+    
+    // hiding and showing elements in DOM
+    userHeader.style.display = "none";
+    levelSelector.style.display = 'none';
+    userInputBox.style.display = 'block';
+    userInput.style.display = 'inline';
+    startBtn.style.display = 'none';
+    timingSessionChoose.style.display = "none";
+    resetBtn.style.display = 'inline-block';
+
+    // making the quote in span tags
+    const spanWords = extracted_words.map(word => {
+        return `<span>${word} </span>`;
+    });
+
+    // setting up the quote in DOM
+    quoteEle.innerHTML = spanWords.join('');
+    quoteEle.childNodes[0].className = 'highlight';
+    userInput.innerText = '';
+    userInput.focus();
+
+
+    // create a div and add this html to it
+    const speedResultCalc = document.createElement("div");
+    speedResultCalc.classList.add("speedResultCalc");
+    speedResultCalc.style.textAlign = "center";
+    speedResultCalc.style.backgroundColor = "#f1f1f1";
+    speedResultCalc.style.border = "1px solid #ccc";
+    speedResultCalc.style.borderRadius = "4px";
+    speedResultCalc.style.padding = "10px";
+
+    speedResultCalc.innerHTML = `
+    <ul class="result-details" style="list-style: none; padding: 0; margin: 0;">
+        <li class="time" style="display: inline-block; margin: 5px;">
+            <p style="font-size: 14px; margin: 0; color: #333;">Time Left:</p>
+            <span style="font-size: 16px; font-weight: bold;"><b>60</b>s</span>
+        </li>
+        <li class="mistake" style="display: inline-block; margin: 5px;">
+            <p style="font-size: 14px; margin: 0; color: #333;">Mistakes:</p>
+            <span style="font-size: 16px; font-weight: bold;">0</span>
+        </li>
+        <li class="wpm" style="display: inline-block; margin: 5px;">
+            <p style="font-size: 14px; margin: 0; color: #333;">WPM:</p>
+            <span style="font-size: 16px; font-weight: bold;">0</span>
+        </li>
+        <li class="cpm" style="display: inline-block; margin: 5px;">
+            <p style="font-size: 14px; margin: 0; color: #333;">CPM:</p>
+            <span style="font-size: 16px; font-weight: bold;">0</span>
+        </li>
+    </ul>
+    `;
+    // append the div to the body
+    resetBtn.insertAdjacentElement("afterend", speedResultCalc);
+
+
+    // setting up the timer
+    startTime = new Date().getTime();
+    startTimer(time);
+});
 
 const getwpm = () => {
     // access history from local storage
@@ -135,40 +205,8 @@ const startTimer = (time) => {
 // start the typing game
 startBtn.addEventListener("click", () => {
     // getting quote and time
-    const quote = makequote()
-    
-    // get time choosed by user and convert it into milliseconds
-    const time = getTime() * 60 * 1000;
-
-    // splitting quote into words
-    extracted_words = quote.split(' ');
-    extracted_words_length = extracted_words.length;
-    wordIndex = 0;
-    
-    // hiding and showing elements in DOM
-    userHeader.style.display = "none";
-    levelSelector.style.display = 'none';
-    userInputBox.style.display = 'block';
-    userInput.style.display = 'inline';
-    startBtn.style.display = 'none';
-    startInstruction.style.display = 'none';
-    timingSessionChoose.style.display = "none";
-    resetBtn.style.display = 'inline-block';
-
-    // making the quote in span tags
-    const spanWords = extracted_words.map(word => {
-        return `<span>${word} </span>`;
-    });
-
-    // setting up the quote in DOM
-    quoteEle.innerHTML = spanWords.join('');
-    quoteEle.childNodes[0].className = 'highlight';
-    userInput.innerText = '';
-    userInput.focus();
-
-    // setting up the timer
-    startTime = new Date().getTime();
-    startTimer(time);
+    // return to the practice/typing page
+    return window.location.href = "/practice/typing";
 });
 
 // function to call when the session is completed 
@@ -188,41 +226,12 @@ const completedSession = () => {
     saveHistory();
 }
 
-// working when user types in the input box ( typing the highlighted word ) 
-userInput.addEventListener('input', () => {
-    const curWord = extracted_words[wordIndex];
-    const input = userInput.value;
-
-    // wrote all words or time out then complete the session
-    if (timeout || (input === curWord && wordIndex === (extracted_words.length - 1))) {
-        completedSession();
-    } 
-    // moving to the next word
-    else if (input.endsWith(' ') && input.trim() === curWord) {
-        userInput.value = '';
-        char_you_typed += curWord.length;
-        wordIndex++;
-        for (const wordEle of quoteEle.childNodes) {
-            wordEle.className = '';
-        }
-        quoteEle.childNodes[wordIndex].className = 'highlight';
-    }
-    // remove all classes if user is typing correctly
-    else if (curWord.startsWith(input)) {
-        userInput.className = '';
-    }
-    // error showing if user mistyped
-    else {
-        userInput.className = 'error';
-    }
-});
 
 // Reset the typing game
 resetBtn.addEventListener("click", () => {
     // hiding and showing elements in DOM
     levelSelector.style.display = 'block';
     startBtn.style.display = 'block';
-    startInstruction.style.display = 'block';
     timingSessionChoose.style.display = "flex";
     userHeader.style.display = "block"
 

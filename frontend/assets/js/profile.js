@@ -8,13 +8,13 @@ const checkIfUserData = (msg) => {
     if(!name){
         const linktoprofile = document.createElement('a');
         linktoprofile.innerText = "Click here";
-        linktoprofile.href = "./practice.html";
+        linktoprofile.href = "/practice";
         navigateEle.innerText = `${msg}`;
         navigateEle.insertAdjacentElement('afterbegin', linktoprofile);
     }else{
         const linktoprofile = document.createElement('a');
         linktoprofile.innerText = "Click here";
-        linktoprofile.href = "./practice.html";
+        linktoprofile.href = "/practice";
         navigateEle.innerText = "practice again";
         navigateEle.insertAdjacentElement('afterbegin', linktoprofile);
     }
