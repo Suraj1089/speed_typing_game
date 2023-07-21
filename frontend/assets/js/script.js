@@ -114,7 +114,19 @@ function initTimer() {
         timeTag.innerText = timeLeft;
         let wpm = Math.round(((charIndex - mistakes)  / 5) / (maxTime - timeLeft) * 60);
         wpmTag.innerText = wpm;
-    } else {
+    }
+     else if(timeLeft === 0) {
+            // create a popup window with the result
+           alert(`Your time is up! 
+           Your result is: ${wpmTag.innerText} wpm
+            Accuracy: ${accuracyTag.innerText}%
+            Mistakes: ${mistakeTag.innerText}
+            CPM: ${cpmTag.innerText}
+           `);
+           clearInterval(timer);
+           window.location.href = "/practice"; 
+        }
+    else {
         clearInterval(timer);
     }
 }

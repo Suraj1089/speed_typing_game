@@ -11,14 +11,44 @@
 
         <!-- Linking Assets -->
         <link rel="shortcut icon" href="{{ url_for('static', path='/images/timer.png') }}" type="image/x-icon">
+        <link rel="stylesheet" href="{{ url_for('static', path='/css/index.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', path='/css/practice.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', path='/css/dark.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', path='/css/typing.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-         
-        <!-- Title -->
+
         <title>About Typing Test</title>
     </head>
   <body>
+    <nav>
+      <div class="navbar">
+          <!-- Website Brand/Logo -->
+          <div class="brand">
+              <a href="/" class="brand-name">Typing Test</a>
+          </div>
+          <!-- Navigation Menu -->
+          <div class="navigation">
+              <ul class="main-menu">
+                  <li class="nav-item"><a href="/practice" class="nav-item-link"><i class="fas fa-keyboard"></i> Practice</a></li>
+                  <li class="nav-item"><a href="/about" class="nav-item-link"><i class="fas fa-info-circle"></i> About</a></li>
+                  <li class="nav-item"><a href="/profile" class="nav-item-link"><i class="fas fa-user"></i> Profile</a></li>
+              </ul>
+          </div>
+          <div class="nav-right">
+
+              <!-- Dark mode button -->
+              <i id="icon1" onclick="toggleLightDarkMode()" class="bx bx-moon dark-btn" style="font-size: x-large;"></i>
+          </div>
+          <!-- Mobile Navigation Menu -->
+          <div class="mobile-nav">
+              <div class="bar1"></div>
+              <div class="bar2"></div>
+              <div class="bar3"></div>
+          </div>
+      </div>
+  </nav>
     <div class="wrapper">
       <input type="text" class="input-field">
       <div class="content-box">
@@ -47,11 +77,11 @@
               <p>Accuracy:</p>
               <span>0</span>
             </li>
+            <button>Try Again</button>
+            <button id="resetBtnGame" style="background-color: rgb(180, 0, 0)">Reset Game</button>
           </ul>
           <br>
           
-          <button>Try Again</button>
-          <button id="resetBtnGame" style="background-color: rgb(180, 0, 0)">Reset Game</button>
         </div>
       </div>
     </div>
