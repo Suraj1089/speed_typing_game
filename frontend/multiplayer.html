@@ -1,8 +1,5 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
-
 
     <head>
         <!-- Meta Tags -->
@@ -12,20 +9,22 @@
 
         <!-- Linking Assets -->
         <link rel="shortcut icon" href="{{ url_for('static', path='/images/timer.png') }}" type="image/x-icon">
+        <link rel="stylesheet" href="{{ url_for('static', path='/css/multiplayer.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', path='/css/index.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', path='/css/about.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', path='/css/dark.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', path='/css/practice.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', path='/css/profile.css') }}">
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-         
+
         <!-- Title -->
-        <title>About Typing Test</title>
+        <title>Typing Test : Test and practice your typing skills</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     </head>
 
-    <body class="light-mode">
+    <body class="index" style="background-color: white;">
         <!-- Navigation Bar -->
         <nav>
-            <div class="navbar">
+            <div style="background-color: rgb(61, 61, 61);" class="navbar">
                 <!-- Website Brand/Logo -->
                 <div class="brand">
                     <a href="/" class="brand-name">Typing Test</a>
@@ -40,11 +39,7 @@
                     </ul>
                 </div>
                 <!-- Github Repository Link -->
-                <div class="nav-right">
-            
-                    <!-- Dark mode button -->
-                    <i id="icon1"  onclick="toggleLightDarkMode()" class="bx bx-moon dark-btn" style="font-size: x-large;"></i>     
-                </div>
+             
                 <!-- Mobile Navigation Icon -->
                 <div class="mobile-nav">
                     <div class="bar1"></div>
@@ -52,39 +47,29 @@
                     <div class="bar3"></div>
                 </div>
             </div>
+            <main class="main_section">
+                    <div class="main">
+                      <div class="user"><button>Go to Lobby</button></div>
+                      <!-- got to lobbdy || difficulty ||  time || No. of users ||  -->
+                    </div>
+                  
+                    
+            </main>
         </nav>
-        <!-- End of Navigation Bar -->
+      
 
-        <!-- About Section -->
-        <div class="about about-about">
-            <h1 class="about-heading">About</h1>
-            <div class="subtitle">
-                <p >
-                   Typing test solo
-                </p>
-                <br>
+        <script>
 
-                <h2 class="about-heading">How it works</h2>
-                <p ">
-                    enter username and start practice
-                </p>
-            </div>
+          $(document).ready(function(){
+            $(".user button").click(function(){
+              console.log("clicked");
+              const lobby_id = prompt("Enter lobby id");
+              // $(".main").load(`/multiplayer/typing?lobby_id=${lobby_id}`);
+              window.location.href= `http://localhost:8000/multiplayer/typing?lobby_id=2`;
+            });
+          })
 
-            <a href="/practice" class="heroBtn practice"> Practice </a>
-        </div>
-        <!-- End of About Section -->
+        </script>
 
-        <!-- Footer -->
-        <footer>
-           
-        </footer>
-        <!-- End of Footer -->
-
-        <!-- Scripts -->
-        <script src="{{ url_for('static', path='/js/index.js') }}"></script>
-        <script src="{{ url_for('static', path='/js/dark.js') }}"></script>
-
-    </body>
+        </body>
 </html>
-
-

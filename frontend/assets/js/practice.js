@@ -74,52 +74,14 @@ const getwpm = () => {
 };
 
 
-// making the quote from the words
-// const makequote = () => {
-
-//     // get highest wpm of user
-//     let wpm = getwpm();
-
-//     // get time choosed by user
-//     const time = getTime();
-
-//     // if user has no history ie. new user
-//     if (wpm == 0) {
-//         // setting up default difficulty level for new user
-//         if (easyLvlBtn.checked) {
-//             selectedDifficultyLevel = "easy";
-//             quoteLength = 70 * time
-//         } else if (interLvlBtn.checked) {
-//             selectedDifficultyLevel = "medium";
-//             quoteLength = 55 * time
-//         } else if (hardLvlBtn.checked) {
-//             selectedDifficultyLevel = "hard";
-//             quoteLength = 40 * time
-//         }
-//     }
-//     else {
-//         // setting up difficulty level according to user's wpm
-//         if (easyLvlBtn.checked) {
-//             selectedDifficultyLevel = "easy";
-//             quoteLength = (wpm + 8) * time 
-//         } else if (interLvlBtn.checked) {
-//             selectedDifficultyLevel = "medium";
-//             quoteLength = (wpm + 4) * time
-//         } else if (hardLvlBtn.checked) {
-//             selectedDifficultyLevel = "hard";
-//             quoteLength = (wpm + 2) * time
-//         }
-//     }
-//     return makeSentence(selectedDifficultyLevel,quoteLength);
-// };
 
 function getDiffLevel() {
     if (easyLvlBtn.clicked) {
-        selectedDifficultyLevel = "easy";
+        selectedDifficultyLevel = "Easy";
     } else if (interLvlBtn.clicked) {
-        selectedDifficultyLevel = "medium";
+        selectedDifficultyLevel = "Medium";
     } else if (hardLvlBtn.clicked) {
-        selectedDifficultyLevel = "hard";
+        selectedDifficultyLevel = "Hard";
     }
     console.log(selectedDifficultyLevel);
 }
@@ -174,27 +136,11 @@ startBtn.addEventListener("click", () => {
     // getting quote and time
     // return to the practice/typing page
     const typingTime = getTime();
-    const difficultyLevel = getDiffLevel();
+    const difficultyLevel = selectedDifficultyLevel;
     console.log(typingTime, difficultyLevel);
     window.location.href = `/practice/typing?difficulty=${difficultyLevel}&time=${typingTime}`;
 });
 
-// function to call when the session is completed 
-// either by writting all words or time goes off
-const completedSession = () => {
-    // calculating speed
-    const timeTaken = ((new Date().getTime() - startTime) / 1000).toFixed(2); // in seconds
-    const speed_word_pm = Math.ceil((char_you_typed / 5) / (timeTaken / 60)); // formula taken from google
-    const message = `Congratulations! You have typed in ${timeTaken} seconds`;
-    const speedMessage = `Your speed is ${speed_word_pm} words per minutes`;
-
-    // display results
-    messages.style.display = 'inline';
-    messageEle.innerText = message;
-    speedEle.innerText = speedMessage;
-    userInput.style.display = 'none';
-    saveHistory();
-}
 
 
 // Reset the typing game
@@ -234,7 +180,9 @@ const getAndSetUserName = () => {
         timingSessionChoose.style.display = "flex";
     }
     else {
-        nameModalEle.style.display = "block";
+        levelSelector.style.display = "block";
+        timingSessionChoose.style.display = "flex";
+        // nameModalEle.style.display = "block";
     }
 };
 

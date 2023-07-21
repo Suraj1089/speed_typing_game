@@ -18,7 +18,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+        <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <title>About Typing Test</title>
     </head>
   <body>
@@ -34,6 +36,7 @@
                   <li class="nav-item"><a href="/practice" class="nav-item-link"><i class="fas fa-keyboard"></i> Practice</a></li>
                   <li class="nav-item"><a href="/about" class="nav-item-link"><i class="fas fa-info-circle"></i> About</a></li>
                   <li class="nav-item"><a href="/profile" class="nav-item-link"><i class="fas fa-user"></i> Profile</a></li>
+                  <li class="nav-item"><a href="/multiplayer" class="nav-item-link"><i class="fas fa-user"></i> multiplayer mode</a></li>
               </ul>
           </div>
           <div class="nav-right">
@@ -95,6 +98,7 @@
       });
       document.getElementById('time-left').innerHTML = parseInt(window.location.href.split("=")[2]) * 60 + "s";
   </script>
+
   
   </body>
 </html>
