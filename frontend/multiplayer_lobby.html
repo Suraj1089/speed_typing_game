@@ -9,7 +9,7 @@
 
         <!-- Linking Assets -->
         <link rel="shortcut icon" href="{{ url_for('static', path='/images/timer.png') }}" type="image/x-icon">
-        <link rel="stylesheet" href="{{ url_for('static', path='/css/multiplayer.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', path='/css/lobby.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', path='/css/index.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', path='/css/practice.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', path='/css/profile.css') }}">
@@ -18,6 +18,8 @@
 
         <!-- Title -->
         <title>Typing Test : Test and practice your typing skills</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+       
     </head>
 
     <body class="index" style="background-color: white;">
@@ -36,19 +38,20 @@
                         <li class="nav-item"><a href="/profile" class="nav-item-link"><i class="fas fa-user"></i> Profile</a></li>
                         <li class="nav-item"><a href="/multiplayer" class="nav-item-link"><i class="fas fa-user"></i> multiplayer mode</a></li>
                     </ul>
-                </div>
-                <!-- Github Repository Link -->
-             
-                <!-- Mobile Navigation Icon -->
-                <div class="mobile-nav">
+                  </div>
+                  <!-- Github Repository Link -->
+                  
+                  <!-- Mobile Navigation Icon -->
+                  <div class="mobile-nav">
                     <div class="bar1"></div>
                     <div class="bar2"></div>
                     <div class="bar3"></div>
+                  </div>
                 </div>
-            </div>
-            <main class="main_section">
-                    <div class="main">
-                        <div class="wrapper">
+                <main class="main_section">
+                  <div class="main">
+                    <div class="wrapper">
+                          <h1>time: {{ time }} lobby id: {{ lobby_id }} </h1> 
                             <input type="text" class="input-field">
                             <div class="content-box">
                               <div class="typing-text">
@@ -58,7 +61,7 @@
                                 <ul class="result-details">
                                   <li class="time">
                                     <p>Time Left:</p>
-                                    <span id="time-left">s</span>
+                                    <span id="time-left">{{ time }}</span>
                                   </li>
                                   <li class="mistake">
                                     <p>Mistakes:</p>
@@ -86,7 +89,6 @@
                           </div>
                     </div>
                     <div class="user_component">
-                        <div class="user">Hello world</div>
                 
 
                     </div>
@@ -96,7 +98,48 @@
       
 
         <script src="{{ url_for('static', path='/js/multiplayer.js') }}"></script>
+                 
+        
+        <script>
+          var usersInLobby = [{username: "test", accurrancy: 10}, {username: "test2", accurrancy: 10}];
+        $(document).ready(function(){
+          // <div class="user">Hello world</div>
+          // create this type of div and append to user_component
+          $.ajax({
+               type: "POST",
+                url: `http://localhost:8000/getplayers?lobby_id=${lobby._id}`,
+                dataType: "json",
+                success: function(data) {
+                  console.log(data);
+                  usersInLobby = data.users;
+                },
+                error: function(error) {
+                  console.error('Error getting players data:', error);
+                }
+              });
+          usersInLobby.forEach(user => {
+            var userDiv = document.createElement("div");
+            userDiv.className = "user";
+            userDiv.innerHTML = user.username + " " + user.accurrancy;
+            document.getElementsByClassName("user_component")[0].appendChild(userDiv);
+          });
+          var socket = new WebSocket("ws://localhost:8000/sio");
+            socket.onopen = function(e) {
+                socket.send("My name is John");
+                const url = new URL(window.location.href);
+                const lobby_id = url.searchParams.get("lobby_id");
+                const username = url.searchParams.get("username");
+                console.log(lobby_id);
+                console.log(username);
+                usersInLobby.push({username: username, accurrancy: 10});
+            };
+          });
+              
+          </script>
 
+        
+      
+        
 
         </body>
 </html>

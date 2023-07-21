@@ -56,6 +56,7 @@ for database connection
 * https://www.mongodb.com/developer/languages/python/python-quickstart-fastapi/
 
 for frontend(ui)
+* https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX
 * https://github.com/sayantanm19/js-simple-typing-game
 * https://codingartistweb.com/2021/11/typing-test-with-html-css-javascript/#google_vignette
 * https://www.codingnepalweb.com/typing-speed-test-game-html-javascript/
@@ -65,5 +66,11 @@ for frontend(ui)
 * https://github.com/TecEash1/TypingTest-Website
 * https://github.com/NoelEmaas/typerist
 * https://github.com/trombonist76/redux-fastest-fingers
+* https://bocadilloproject.github.io/how-to/socketio.html#integrating-with-socket-io-client
 
 for backend
+* https://fastapi.tiangolo.com/
+* https://cloud.mongodb.com/v2 
+* https://chat.openai.com/
+* https://github.com/pyropy/fastapi-socketio
+* https://bocadilloproject.github.io/how-to/socketio.html#integrating-with-socket-io-client

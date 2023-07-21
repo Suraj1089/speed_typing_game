@@ -22,27 +22,26 @@ var paragraphs = [];
 // get paragraph from localStorage
 
 const typingText = document.querySelector(".typing-text p"),
-inpField = document.querySelector(".wrapper .input-field"),
-tryAgainBtn = document.querySelector(".content button"),
-timeTag = document.querySelector(".time span"),
-mistakeTag = document.querySelector(".mistake span"),
-wpmTag = document.querySelector(".wpm span"),
-cpmTag = document.querySelector(".cpm span");
+    inpField = document.querySelector(".wrapper .input-field"),
+    tryAgainBtn = document.querySelector(".content button"),
+    timeTag = document.querySelector(".time span"),
+    mistakeTag = document.querySelector(".mistake span"),
+    wpmTag = document.querySelector(".wpm span"),
+    cpmTag = document.querySelector(".cpm span");
 accuracyTag = document.querySelector(".accuracy span");
 
 let timer,
-// maxTime = 100,
-// get maxTime from url
-// window.location.href = `/practice/typing?difficulty=${difficultyLevel}&time=${typingTime}`;
-// maxTime = window.location.href.split("=")[2],
-// get integer from string
-// maxTime = parseInt(window.location.href.split("=")[2]) * 60,
-charIndex = mistakes = isTyping = 0;
+    // maxTime = 100,
+    // get maxTime from url
+    // window.location.href = `/practice/typing?difficulty=${difficultyLevel}&time=${typingTime}`;
+    // maxTime = window.location.href.split("=")[2],
+    // get integer from string
+    // maxTime = parseInt(window.location.href.split("=")[2]) * 60,
+    charIndex = mistakes = isTyping = 0;
 const params = new URLSearchParams(new URL(window.location.href).search);
-var maxTime = parseInt( params.get('time')) * 60;
-var  difficultyLevel = params.get('difficulty');
+var maxTime = parseInt(params.get('time')) * 60;
+var difficultyLevel = params.get('difficulty');
 var timeLeft = maxTime;
-
 
 
 console.log('dffiucitly ' + difficultyLevel);
@@ -113,24 +112,24 @@ function initTyping() {
 
 
 function initTimer() {
-    if(timeLeft > 0) {
+    if (timeLeft > 0) {
         timeLeft--;
         timeTag.innerText = timeLeft;
-        let wpm = Math.round(((charIndex - mistakes)  / 5) / (maxTime - timeLeft) * 60);
+        let wpm = Math.round(((charIndex - mistakes) / 5) / (maxTime - timeLeft) * 60);
         wpmTag.innerText = wpm;
     }
-     else if(timeLeft === 0) {
-            // create a popup window with the result
-           alert(`Your time is up! 
+    else if (timeLeft === 0) {
+        // create a popup window with the result
+        alert(`Your time is up! 
            Result:
            WPM: ${wpmTag.innerText} 
             Accuracy: ${accuracyTag.innerText}
             Mistakes: ${mistakeTag.innerText}
             CPM: ${cpmTag.innerText}
            `);
-           clearInterval(timer);
-           window.location.href = "/practice"; 
-        }
+        clearInterval(timer);
+        window.location.href = "/practice";
+    }
     else {
         clearInterval(timer);
     }
@@ -151,33 +150,37 @@ function resetGame() {
 
 
 
-$(document).ready(function() {
+$(document).ready(function () {
     // Define the server endpoint URL
     const serverURL = `http://localhost:8000/loadparagraph?time=${maxTime}&difficulty=${difficultyLevel}`;
-  
-      $.ajax({
+
+    $.ajax({
         url: serverURL,
         method: "GET",
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
             console.log(data);
             data['paragraph'].forEach(element => {
                 paragraphs.push(element['paragraph'])
             });
             console.log(paragraphs);
-            
-        loadParagraph();
-        inpField.addEventListener("input", initTyping);
-        tryAgainBtn.addEventListener("click", resetGame);
+
+            resetGame();
+            inpField.addEventListener("input", initTyping);
+            tryAgainBtn.addEventListener("click", resetGame);
 
         },
-        error: function(err) {
-          // Handle any errors that occur during the AJAX request
-          alert("Failed to load the paragraph. loading default paragraph" + String(err.data));
-          paragraphs = defaultPara;
-          window.location.href = '/practice';
+        error: function (err) {
+            // Handle any errors that occur during the AJAX request
+            alert("Data not found for selected query. Click ok to load default paragraph Error: " + String(err.data));
+            paragraphs = defaultPara;
+            resetGame();
+            inpField.addEventListener("input", initTyping);
+            tryAgainBtn.addEventListener("click", resetGame);
+            // window.location.href = '/practice';
 
         }
-      });
-    }
+    });
+}
 )
+

@@ -15,7 +15,7 @@ body{
 }
 .main{
   height:50rem;
-  width:50rem;
+  width:100rem;
   background-color: #fff;
   border:1px solid black;
   margin-right:1rem;
@@ -43,6 +43,12 @@ body{
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+  .user button {
+    margin-left: 15px; /* Adjust the value as needed */
+  }
+  .user label {
+    margin-left: 50px; /* Adjust the value as needed */
+  }
 }
 body{
   display: flex;
@@ -104,7 +110,7 @@ body{
 .typing-text p span.active::before{
   position: absolute;
   content: "";
-  height: 2px;
+  height: 4px;
   width: 100%;
   bottom: 0;
   left: 0;

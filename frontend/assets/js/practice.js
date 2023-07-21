@@ -20,7 +20,6 @@ const tmin = document.getElementById("tmin");
 const xitymin = document.getElementById("xitymin");
 const infinit = document.getElementById("infinit");
 // import functions
-import { makeSentence } from './sentence.mjs'
 
 // get elements from DOM
 const nameModalEle = document.querySelector(".nameModal");

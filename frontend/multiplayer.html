@@ -49,27 +49,98 @@
             </div>
             <main class="main_section">
                     <div class="main">
-                      <div class="user"><button>Go to Lobby</button></div>
-                      <!-- got to lobbdy || difficulty ||  time || No. of users ||  -->
-                    </div>
-                  
                     
+                    </div>
             </main>
         </nav>
-      
+
 
         <script>
-
           $(document).ready(function(){
+            // Make a request to the server using AJAX
+            $.ajax({
+          type: "GET",
+          url: `http://localhost:8000/getlobbies`,
+          dataType: "json",
+          success: function(data) {
+            // Find the lobby with the specified lobby_id from the array
+            const lobbyData = data['lobbies'];
+            console.log(lobbyData)
+            // Clear existing lobby information
+            $(".main").empty();
+
+            // Iterate through each lobby in the data array and add it to the main div
+            lobbyData.forEach(lobby => {
+              const lobbyDiv = $("<div class='user'>").css({
+                "margin-bottom": "10px",
+                "padding": "10px",
+                "border": "1px solid #ddd",
+                "background-color": "#fff"
+              });
+              const lobbyButton = $("<button>").text(lobby.name);
+              lobbyButton.click(function() {
+                const username = prompt("Enter your username");
+                console.log('username is', username)
+                if (!username) {
+                    // If the user cancels or leaves the username field empty, do not proceed
+                    return;
+                }
+                $.ajax({
+               type: "POST",
+                url: `http://localhost:8000/createplayer?lobby_id=${lobby._id}&username=${username}&wpm=0&accuracy=0`,
+                dataType: "json",
+                success: function(data) {
+
+                  window.location.href = `http://localhost:8000/multiplayer/typing?lobby_id=${lobby._id}&time=${lobby.time}&difficulty=${lobby.difficulty}&username=${username}`;
+                },
+                error: function(error) {
+                  console.error('Error creating player:', error);
+                }
+              })
+            }
+            );
+          
+          
+            
+              const requiredPlayerLabel = $("<label style='margin-left:15px' class='difficulty' for='requiredPlayer'>").text("Required Players:");
+              const requiredPlayerSpan = $("<span style='margin-left:15px id='requiredPlayer'>").text(lobby.players);
+
+              const presentPlayerLabel = $("<label style='margin-left:15px class='difficulty' for='presentPlayer'>").text("Present Players:");
+              const presentPlayerSpan = $("<span style='margin-left:15px id='presentPlayer'>").text(lobby.presentPlayers);
+
+              const difficultyLabel = $("<label style='margin-left:15px for='difficulty-label'>").text("Difficulty:");
+              const difficultySpan = $("<span id='difficulty-label'>").text(lobby.difficulty);
+
+              const timeLabel = $("<label style='margin-left:15px for='time-label'>").text("Remaining Time:");
+              const timeSpan = $("<span id='timer'>").text(lobby.time);
+
+              // Append elements to lobbyDiv
+              lobbyDiv.append(
+                lobbyButton,
+                requiredPlayerLabel, requiredPlayerSpan,
+                presentPlayerLabel, presentPlayerSpan,
+                difficultyLabel, difficultySpan,
+                timeLabel, timeSpan
+              );
+
+              // Append lobbyDiv to the main div
+              $(".main").append(lobbyDiv);
+            })
+          },
+              error: function(error) {
+                console.error('Error fetching lobby data:', error);
+              }
+            });
+          });
             $(".user button").click(function(){
               console.log("clicked");
               const lobby_id = prompt("Enter lobby id");
-              // $(".main").load(`/multiplayer/typing?lobby_id=${lobby_id}`);
-              window.location.href= `http://localhost:8000/multiplayer/typing?lobby_id=2`;
-            });
-          })
-
+      
+          });
         </script>
+      
+
+    
 
         </body>
 </html>

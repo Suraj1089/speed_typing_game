@@ -2,21 +2,20 @@
 from fastapi import FastAPI, Request, Depends
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from typing import List
 from fastapi.responses import HTMLResponse
-from fastapi import HTTPException
-from fastapi_socketio import SocketManager
-from api import paragraphs
+from api import paragraphs,multiplayer
+# from api.socket import sio_app
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
-import os
-import uuid
-import asyncio
-
-
+from fastapi import WebSocket,WebSocketDisconnect
+import socketio
+from typing import List
 
 app = FastAPI()
+
+
 app.include_router(paragraphs.router)
+app.include_router(multiplayer.router)
 origins = [
     "*",
 ]
@@ -34,6 +33,8 @@ templates = Jinja2Templates(directory="../../frontend")
 
 # Mount the "static" directory to serve static files like CSS and JavaScript
 app.mount("/static", StaticFiles(directory="../../frontend/assets"), name="static")
+
+
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -65,12 +66,15 @@ async def about(request: Request):
 
 @app.get('/multiplayer', response_class=HTMLResponse)
 def multiplayer_mode(request: Request):
+    # lobbiaes = requests.get('http://localhost:8000/getlobbies').json()
+    # print(lobbies)
     return templates.TemplateResponse('multiplayer.html',{"request": request})
 
+
 @app.get('/multiplayer/typing', response_class=HTMLResponse)
-def multiplayer_lobby(request: Request,lobby_id: str = "suraj"):
-    print('lobby_id',lobby_id)
-    return templates.TemplateResponse('multiplayer_lobby.html',{"request": request, "lobby_id": lobby_id})
+def multiplayer_lobby(request: Request,time: int = 60, difficulty: str = "Easy",lobby_id: str = "Easy one",username: str = None):
+    return templates.TemplateResponse('multiplayer_lobby.html',{"request": request, "lobby_id": lobby_id
+    , "time": time, "difficulty": difficulty, "username": username})
 
 
 @app.on_event("startup")
@@ -83,7 +87,37 @@ async def startup_event():
 async def shutdown_event():
     app.mongodb_client.close()
 
+
+
+class SocketManager:
+    def __init__(self):
+        self.active_connections: List[(WebSocket, str)] = []
+
+    async def connect(self, websocket: WebSocket, user: str):
+        await websocket.accept()
+        self.active_connections.append((websocket, user))
+
+    def disconnect(self, websocket: WebSocket, user: str):
+        self.active_connections.remove((websocket, user))
+
+    async def broadcast(self, data):
+        for connection in self.active_connections:
+            await connection[0].send_json(data)    
+
+manager = SocketManager()
+
+@app.websocket("/sio")
+async def chat(websocket: WebSocket):
+    print("***************************************************************** websocket")
+    await websocket.accept()
+    while True:
+        print('true ^^^^^^^^^^^^^^^^^')
+        data = await websocket.receive_text()
+        await websocket.send_text(f"Message text was: {data}")
+
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="localhost", port=8000, reload=True)
-    socket_manager = SocketManager(app=app)
+    
