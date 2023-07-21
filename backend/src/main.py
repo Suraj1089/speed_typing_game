@@ -2,23 +2,23 @@
 from fastapi import FastAPI, Request, Depends
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-# from motor.motor_asyncio import AsyncIOMotorClient
 from typing import List
 from fastapi.responses import HTMLResponse
 from fastapi import HTTPException
 from fastapi_socketio import SocketManager
 from api import paragraphs
 from fastapi.middleware.cors import CORSMiddleware
+from pymongo import MongoClient
+import os
+import uuid
+import asyncio
 
 
 
 app = FastAPI()
 app.include_router(paragraphs.router)
 origins = [
-    "http://localhost.tiangolo.com",
-    "https://localhost.tiangolo.com",
-    "http://localhost",
-    "http://localhost:8080",
+    "*",
 ]
 
 app.add_middleware(
@@ -71,6 +71,17 @@ def multiplayer_mode(request: Request):
 def multiplayer_lobby(request: Request,lobby_id: str = "suraj"):
     print('lobby_id',lobby_id)
     return templates.TemplateResponse('multiplayer_lobby.html',{"request": request, "lobby_id": lobby_id})
+
+
+@app.on_event("startup")
+async def startup_event():
+    app.mongodb_client = MongoClient('mongodb+srv://suraj:suraj@cluster0.fswur.mongodb.net/?retryWrites=true&w=majority')
+    app.database = app.mongodb_client["tallycode"]
+
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    app.mongodb_client.close()
 
 if __name__ == "__main__":
     import uvicorn

@@ -76,14 +76,15 @@ const getwpm = () => {
 
 
 function getDiffLevel() {
-    if (easyLvlBtn.clicked) {
+    if (easyLvlBtn.checked) {
         selectedDifficultyLevel = "Easy";
-    } else if (interLvlBtn.clicked) {
+    } else if (interLvlBtn.checked) {
         selectedDifficultyLevel = "Medium";
-    } else if (hardLvlBtn.clicked) {
+    } else if (hardLvlBtn.checked) {
         selectedDifficultyLevel = "Hard";
     }
     console.log(selectedDifficultyLevel);
+    return selectedDifficultyLevel;
 }
 
 
@@ -136,9 +137,9 @@ startBtn.addEventListener("click", () => {
     // getting quote and time
     // return to the practice/typing page
     const typingTime = getTime();
-    const difficultyLevel = selectedDifficultyLevel;
+    const difficultyLevel = getDiffLevel();
     console.log(typingTime, difficultyLevel);
-    window.location.href = `/practice/typing?difficulty=${difficultyLevel}&time=${typingTime}`;
+    window.location.href = `/practice/typing?time=${typingTime}&difficulty=${difficultyLevel}`;
 });
 
 
