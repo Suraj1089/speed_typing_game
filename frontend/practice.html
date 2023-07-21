@@ -27,7 +27,7 @@
             <div class="navbar">
                 <!-- Website Brand/Logo -->
                 <div class="brand">
-                    <a href="./index.html" class="brand-name">Typing Test</a>
+                    <a href="/" class="brand-name">Typing Test</a>
                 </div>
                 <!-- Navigation Menu -->
                 <div class="navigation">
@@ -88,29 +88,52 @@
                 </div>
 
                 <!-- Time Duration Selector -->
-                <div id="timingSessionChoose">
+                <<div id="timingSessionChoose">
                     <h2>Choose Time Duration</h2>
                     <ul class="timerListUL">
                         <label class="timerSelector">
                             <input type="radio" id="onemin" name="time-button">
-                            <span for="onemin" class="radio-label">1 minute</span>
+                            <span class="radio-label">1 minute</span>
                         </label>
                         <label class="timerSelector">
                             <input type="radio" id="twomin" name="time-button">
-                            <span for="twomin" class="radio-label">2 minute</span>
+                            <span class="radio-label">2 minutes</span>
                         </label>
                         <label class="timerSelector">
                             <input type="radio" id="fivemin" name="time-button">
-                            <span for="fivemin" class="radio-label">5 minute</span>
+                            <span class="radio-label">5 minutes</span>
                         </label>
+                        <label class="timerSelector">
+                            <input type="radio" id="tenmin" name="time-button">
+                
+                
+                            <span class="radio-label">10 minutes</span>
+                        </label>
+                        <label class="timerSelector">
+                            <input type="radio" id="tmin" name="time-button">
+                            <span class="radio-label">30 minutes</span>
+                        </label>
+                        <label class="timerSelector">
+                            <input type="radio" id="xitymin" name="time-button">
+                            <span class="radio-label">60 minutes</span>
+                        </label>
+                        <!-- Custom input slider for time duration -->
+                        <label class="timerSelector">
+                            <!-- <input type="radio" id="xitymin" name="time-button"> -->
+                            <input type="text" id="infinit" name="time-button">
+                            <span class="radio-label">Custom</span>
+                        </label>
+                        <!-- Custom input slider for time duration -->
+                        
                     </ul>
                 </div>
+                
                 
                 <!-- Buttons -->
                 <div class="start-btn">
                     <button id="startBtn">START</button><br>
-                    <button style="background-color: blue;" id="startBtn2">start2</button><br>
                     <!--time left-->
+                    <button id="startBtn2"></button>
                     
                     <button id="resetBtn">RESET</button>
                 </div>
@@ -148,6 +171,15 @@
         <script type="module" src="{{ url_for('static', path='/js/practice.mjs') }}"></script>
         <script src="{{ url_for('static', path='/js/index.js') }}"></script>
         <script src="{{ url_for('static', path='/js/dark.js') }}"></script>
+
+        <script>
+             const customDurationInput = document.getElementById("custom-duration");
+            const sliderLabel = document.getElementById("slider-label");
+
+        customDurationInput.addEventListener("input", function() {
+            sliderLabel.textContent = `${this.value} minute${this.value !== "1" ? "s" : ""}`;
+        });
+        </script>
         
     </body>
 

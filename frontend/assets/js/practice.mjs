@@ -15,6 +15,10 @@ const onemin = document.getElementById("onemin");
 const twomin = document.getElementById("twomin");
 const fivemin = document.getElementById("fivemin");
 const startBtn2 = document.getElementById("startBtn2");
+const tenmin = document.getElementById("tenmin");
+const tmin = document.getElementById("tmin");
+const xitymin = document.getElementById("xitymin");
+const infinit = document.getElementById("infinit");
 // import functions
 import { makeSentence } from './sentence.mjs'
 
@@ -42,76 +46,7 @@ let selectedTime = 0;
 let char_you_typed = 0
 let characters;
 
-startBtn2.addEventListener("click", () => {
-    // getting quote and time
-    const quote = makequote()
-    
-    // get time choosed by user and convert it into milliseconds
-    const time = getTime() * 60 * 1000;
 
-    // splitting quote into words
-    extracted_words = quote.split(' ');
-    extracted_words_length = extracted_words.length;
-    wordIndex = 0;
-    
-    // hiding and showing elements in DOM
-    userHeader.style.display = "none";
-    levelSelector.style.display = 'none';
-    userInputBox.style.display = 'block';
-    userInput.style.display = 'inline';
-    startBtn.style.display = 'none';
-    timingSessionChoose.style.display = "none";
-    resetBtn.style.display = 'inline-block';
-
-    // making the quote in span tags
-    const spanWords = extracted_words.map(word => {
-        return `<span>${word} </span>`;
-    });
-
-    // setting up the quote in DOM
-    quoteEle.innerHTML = spanWords.join('');
-    quoteEle.childNodes[0].className = 'highlight';
-    userInput.innerText = '';
-    userInput.focus();
-
-
-    // create a div and add this html to it
-    const speedResultCalc = document.createElement("div");
-    speedResultCalc.classList.add("speedResultCalc");
-    speedResultCalc.style.textAlign = "center";
-    speedResultCalc.style.backgroundColor = "#f1f1f1";
-    speedResultCalc.style.border = "1px solid #ccc";
-    speedResultCalc.style.borderRadius = "4px";
-    speedResultCalc.style.padding = "10px";
-
-    speedResultCalc.innerHTML = `
-    <ul class="result-details" style="list-style: none; padding: 0; margin: 0;">
-        <li class="time" style="display: inline-block; margin: 5px;">
-            <p style="font-size: 14px; margin: 0; color: #333;">Time Left:</p>
-            <span style="font-size: 16px; font-weight: bold;"><b>60</b>s</span>
-        </li>
-        <li class="mistake" style="display: inline-block; margin: 5px;">
-            <p style="font-size: 14px; margin: 0; color: #333;">Mistakes:</p>
-            <span style="font-size: 16px; font-weight: bold;">0</span>
-        </li>
-        <li class="wpm" style="display: inline-block; margin: 5px;">
-            <p style="font-size: 14px; margin: 0; color: #333;">WPM:</p>
-            <span style="font-size: 16px; font-weight: bold;">0</span>
-        </li>
-        <li class="cpm" style="display: inline-block; margin: 5px;">
-            <p style="font-size: 14px; margin: 0; color: #333;">CPM:</p>
-            <span style="font-size: 16px; font-weight: bold;">0</span>
-        </li>
-    </ul>
-    `;
-    // append the div to the body
-    resetBtn.insertAdjacentElement("afterend", speedResultCalc);
-
-
-    // setting up the timer
-    startTime = new Date().getTime();
-    startTimer(time);
-});
 
 const getwpm = () => {
     // access history from local storage
@@ -140,43 +75,55 @@ const getwpm = () => {
 
 
 // making the quote from the words
-const makequote = () => {
+// const makequote = () => {
 
-    // get highest wpm of user
-    let wpm = getwpm();
+//     // get highest wpm of user
+//     let wpm = getwpm();
 
-    // get time choosed by user
-    const time = getTime();
+//     // get time choosed by user
+//     const time = getTime();
 
-    // if user has no history ie. new user
-    if (wpm == 0) {
-        // setting up default difficulty level for new user
-        if (easyLvlBtn.checked) {
-            selectedDifficultyLevel = "easy";
-            quoteLength = 70 * time
-        } else if (interLvlBtn.checked) {
-            selectedDifficultyLevel = "medium";
-            quoteLength = 55 * time
-        } else if (hardLvlBtn.checked) {
-            selectedDifficultyLevel = "hard";
-            quoteLength = 40 * time
-        }
+//     // if user has no history ie. new user
+//     if (wpm == 0) {
+//         // setting up default difficulty level for new user
+//         if (easyLvlBtn.checked) {
+//             selectedDifficultyLevel = "easy";
+//             quoteLength = 70 * time
+//         } else if (interLvlBtn.checked) {
+//             selectedDifficultyLevel = "medium";
+//             quoteLength = 55 * time
+//         } else if (hardLvlBtn.checked) {
+//             selectedDifficultyLevel = "hard";
+//             quoteLength = 40 * time
+//         }
+//     }
+//     else {
+//         // setting up difficulty level according to user's wpm
+//         if (easyLvlBtn.checked) {
+//             selectedDifficultyLevel = "easy";
+//             quoteLength = (wpm + 8) * time 
+//         } else if (interLvlBtn.checked) {
+//             selectedDifficultyLevel = "medium";
+//             quoteLength = (wpm + 4) * time
+//         } else if (hardLvlBtn.checked) {
+//             selectedDifficultyLevel = "hard";
+//             quoteLength = (wpm + 2) * time
+//         }
+//     }
+//     return makeSentence(selectedDifficultyLevel,quoteLength);
+// };
+
+function getDiffLevel() {
+    if (easyLvlBtn.clicked) {
+        selectedDifficultyLevel = "easy";
+    } else if (interLvlBtn.clicked) {
+        selectedDifficultyLevel = "medium";
+    } else if (hardLvlBtn.clicked) {
+        selectedDifficultyLevel = "hard";
     }
-    else {
-        // setting up difficulty level according to user's wpm
-        if (easyLvlBtn.checked) {
-            selectedDifficultyLevel = "easy";
-            quoteLength = (wpm + 8) * time 
-        } else if (interLvlBtn.checked) {
-            selectedDifficultyLevel = "medium";
-            quoteLength = (wpm + 4) * time
-        } else if (hardLvlBtn.checked) {
-            selectedDifficultyLevel = "hard";
-            quoteLength = (wpm + 2) * time
-        }
-    }
-    return makeSentence(selectedDifficultyLevel,quoteLength);
-};
+    console.log(selectedDifficultyLevel);
+}
+
 
 // getting time choosed by user
 const getTime = () => {
@@ -192,6 +139,26 @@ const getTime = () => {
         selectedTime = 5
         return selectedTime;
     }
+    else if (tenmin.checked){
+        selectedTime = 10
+        return selectedTime;
+    }
+    else if (tmin.checked){
+        selectedTime = 30
+        return selectedTime;
+    }
+    else if (xitymin.checked){
+        selectedTime = 60
+        return selectedTime;
+    }
+    // check infinit input text is not empty
+    else if (infinit.value != null && infinit.value != ""){
+        selectedTime = infinit.value
+        return selectedTime;
+    }
+    else{
+        return 0;
+    }
 };
 
 // flag after time goes off
@@ -206,7 +173,10 @@ const startTimer = (time) => {
 startBtn.addEventListener("click", () => {
     // getting quote and time
     // return to the practice/typing page
-    return window.location.href = "/practice/typing";
+    const typingTime = getTime();
+    const difficultyLevel = getDiffLevel();
+    console.log(typingTime, difficultyLevel);
+    window.location.href = `/practice/typing?difficulty=${difficultyLevel}&time=${typingTime}`;
 });
 
 // function to call when the session is completed 
@@ -291,9 +261,9 @@ document.getElementById("timingSessionChoose").addEventListener("click", (e) => 
 
 // listen for level select
 document.getElementById("levelSelector").addEventListener("click", (e) => {
-    if (e.target.name === "radio-button" && (onemin.checked || twomin.checked || fivemin.checked)) {
+    if (e.target.name === "radio-button" && (onemin.checked || twomin.checked || fivemin.checked || tenmin.checked || tmin.checked || xitymin.checked || infinit.value != null && infinit.value != "")) {
         startBtn.style.display = 'block';
-        startInstruction.style.display = 'block'
+        // startInstruction.style.display = 'block'
     }
 })
 

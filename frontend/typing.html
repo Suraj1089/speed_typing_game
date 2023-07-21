@@ -11,10 +11,7 @@
 
         <!-- Linking Assets -->
         <link rel="shortcut icon" href="{{ url_for('static', path='/images/timer.png') }}" type="image/x-icon">
-        <link rel="stylesheet" href="{{ url_for('static', path='/css/index.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', path='/css/typing.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', path='/css/about.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', path='/css/dark.css') }}">
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
          
@@ -32,7 +29,7 @@
           <ul class="result-details">
             <li class="time">
               <p>Time Left:</p>
-              <span><b>60</b>s</span>
+              <span id="time-left">s</span>
             </li>
             <li class="mistake">
               <p>Mistakes:</p>
@@ -46,13 +43,28 @@
               <p>CPM:</p>
               <span>0</span>
             </li>
+            <li class="accuracy">
+              <p>Accuracy:</p>
+              <span>0</span>
+            </li>
           </ul>
+          <br>
+          
           <button>Try Again</button>
+          <button id="resetBtnGame" style="background-color: rgb(180, 0, 0)">Reset Game</button>
         </div>
       </div>
     </div>
 
     <script src="{{ url_for('static', path='/js/script.js') }}"></script>
+    <script>
+      // JavaScript code to handle the click event of the "Reset Game" button
+      document.getElementById('resetBtnGame').addEventListener('click', function() {
+          // Replace 'your-practice-url' with the actual URL of the practice page.
+          window.location.href = '/practice';
+      });
+      document.getElementById('time-left').innerHTML = parseInt(window.location.href.split("=")[2]) * 60 + "s";
+  </script>
   
   </body>
 </html>
