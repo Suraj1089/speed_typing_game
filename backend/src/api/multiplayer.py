@@ -76,8 +76,8 @@ def game_status(request: Request, lobby_id: str,time: int,timer: int):
     
     if lobby:
         if "start_time" not in lobby or "end_time" not in lobby:
-            start_time = datetime.datetime.now()  # Replace with your desired start time logic
-            end_time = start_time + datetime.timedelta(seconds=time)  # Replace with your desired end time logic
+            start_time = datetime.datetime.now()  
+            end_time = start_time + datetime.timedelta(seconds=time) 
             
             request.app.database['lobbies'].update_one(
                 {"_id": ObjectId(lobby_id)},

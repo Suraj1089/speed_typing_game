@@ -30,7 +30,6 @@ async def load_paragraph(request: Request, time: int, difficulty: str):
     }
     
 
-
 @router.post('/createparagraph', status_code=status.HTTP_201_CREATED)
 async def create_paragraph(request: Request, time: int = 60, difficulty: str = "Medium"):
     data = await request.json()

@@ -4,11 +4,9 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from api import paragraphs,multiplayer
-# from api.socket import sio_app
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
 from fastapi import WebSocket,WebSocketDisconnect
-import socketio
 from typing import List
 
 app = FastAPI()
@@ -108,12 +106,23 @@ manager = SocketManager()
 
 @app.websocket("/sio")
 async def chat(websocket: WebSocket):
-    print("***************************************************************** websocket")
     await websocket.accept()
     while True:
-        print('true ^^^^^^^^^^^^^^^^^')
         data = await websocket.receive_text()
-        await websocket.send_text(f"Message text was: {data}")
+        action = data.get("action")
+        if action == "join":
+            await manager.connect(websocket, data.get("user"))
+            await manager.broadcast({"action": "join", "user": data.get("user")})
+        elif action == "startTimer":
+            await manager.broadcast({"action": "startTimer"})
+        elif action == "stopTimer":
+            await manager.broadcast({"action": "stopTimer"})
+        elif action == "disconnect":
+            await manager.disconnect(websocket, data.get("user"))
+            await manager.broadcast({"action": "disconnect", "user": data.get("user")})
+        else:
+
+            await websocket.send_text(f"Message text was: {data}")
 
 
 
