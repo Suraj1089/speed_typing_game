@@ -98,48 +98,7 @@
       
 
         <script src="{{ url_for('static', path='/js/multiplayer.js') }}"></script>
+        <script src="{{ url_for('static', path='/js/lobby.js') }}"></script>
                  
-        
-        <script>
-          var usersInLobby = [{username: "test", accurrancy: 10}, {username: "test2", accurrancy: 10}];
-        $(document).ready(function(){
-          // <div class="user">Hello world</div>
-          // create this type of div and append to user_component
-          $.ajax({
-               type: "POST",
-                url: `http://localhost:8000/getplayers?lobby_id=${lobby._id}`,
-                dataType: "json",
-                success: function(data) {
-                  console.log(data);
-                  usersInLobby = data.users;
-                },
-                error: function(error) {
-                  console.error('Error getting players data:', error);
-                }
-              });
-          usersInLobby.forEach(user => {
-            var userDiv = document.createElement("div");
-            userDiv.className = "user";
-            userDiv.innerHTML = user.username + " " + user.accurrancy;
-            document.getElementsByClassName("user_component")[0].appendChild(userDiv);
-          });
-          var socket = new WebSocket("ws://localhost:8000/sio");
-            socket.onopen = function(e) {
-                socket.send("My name is John");
-                const url = new URL(window.location.href);
-                const lobby_id = url.searchParams.get("lobby_id");
-                const username = url.searchParams.get("username");
-                console.log(lobby_id);
-                console.log(username);
-                usersInLobby.push({username: username, accurrancy: 10});
-            };
-          });
-              
-          </script>
-
-        
-      
-        
-
         </body>
 </html>

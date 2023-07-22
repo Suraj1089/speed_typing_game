@@ -6,6 +6,7 @@ from utils.schemas.multiplayer import LobbyBase
 from fastapi.encoders import jsonable_encoder
 import uuid
 from bson import ObjectId
+from datetime import timedelta,datetime
 
 
 router = APIRouter()
@@ -21,6 +22,14 @@ def get_lobbies(request: Request,limit: int = 10):
         "lobbies": lobbies_list
     }
 
+@router.get('/getlobby', status_code=status.HTTP_200_OK)
+def get_lobby(request: Request,lobby_id: str = "lobby"):
+    print(lobby_id)
+    lobby = request.app.database['lobbies'].find_one({"_id": ObjectId(lobby_id)})
+    lobby["_id"] = str(lobby["_id"])
+    print(lobby)
+    return lobby
+
 @router.post('/createlobby', status_code=status.HTTP_201_CREATED)
 async def create_lobby(request: Request, time: int = 60, difficulty: str = "Medium",players: int = 0,lobby_name: str = "Lobby"):
     lobby = LobbyBase(_id=lobby_name,time=time, difficulty=difficulty,players=players,name=lobby_name)
@@ -33,11 +42,11 @@ async def create_lobby(request: Request, time: int = 60, difficulty: str = "Medi
 
 
 @router.post('/createplayer', status_code=status.HTTP_201_CREATED)
-async def create_player(request: Request,lobby_id: str = "lobby", name: str = "Player",wpm: int = 0,accuracy: int = 0):
+async def create_player(request: Request,lobby_id: str = "lobby", username: str = "Player",wpm: int = 0,accuracy: int = 0):
     player = {
         "_id": str(uuid.uuid4()),
         "lobby_id": lobby_id,
-        "name": name,
+        "name": username,
         "wpm": wpm,
         "accuracy": accuracy
     }
@@ -58,3 +67,25 @@ def get_players(request: Request,lobby_id: str = "lobby"):
     return {
         "players": players_list
     }
+from fastapi.responses import JSONResponse
+from bson.objectid import ObjectId
+
+@router.get('/gamestatus', status_code=status.HTTP_200_OK)
+def game_status(request: Request, lobby_id: str,time: int,timer: int):
+    lobby = request.app.database['lobbies'].find_one({"_id": ObjectId(lobby_id)})
+    
+    if lobby:
+        if "start_time" not in lobby or "end_time" not in lobby:
+            start_time = datetime.datetime.now()  # Replace with your desired start time logic
+            end_time = start_time + datetime.timedelta(seconds=time)  # Replace with your desired end time logic
+            
+            request.app.database['lobbies'].update_one(
+                {"_id": ObjectId(lobby_id)},
+                {"$set": {"start_time": start_time, "end_time": end_time}}
+            )
+            lobby = request.app.database['lobbies'].find_one({"_id": ObjectId(lobby_id)})
+            return JSONResponse(content=lobby, status_code=status.HTTP_200_OK)
+        else:
+            return JSONResponse(content=lobby, status_code=status.HTTP_200_OK)
+    else:
+        return JSONResponse(content={"message": "Lobby not found"}, status_code=status.HTTP_404_NOT_FOUND)
