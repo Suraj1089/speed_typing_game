@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
 from fastapi import WebSocket,WebSocketDisconnect
 from typing import List
-
+import json
 app = FastAPI()
 
 
@@ -87,45 +87,38 @@ async def shutdown_event():
 
 
 
-class SocketManager:
+class ConnectionManager:
     def __init__(self):
-        self.active_connections: List[(WebSocket, str)] = []
+        self.active_connections: list[WebSocket] = []
 
-    async def connect(self, websocket: WebSocket, user: str):
+    async def connect(self, websocket: WebSocket):
         await websocket.accept()
-        self.active_connections.append((websocket, user))
+        self.active_connections.append(websocket)
 
-    def disconnect(self, websocket: WebSocket, user: str):
-        self.active_connections.remove((websocket, user))
+    def disconnect(self, websocket: WebSocket):
+        self.active_connections.remove(websocket)
 
-    async def broadcast(self, data):
+    async def send_personal_message(self, message: str, websocket: WebSocket):
+        await websocket.send_text(message)
+
+    async def broadcast(self, message: str):
         for connection in self.active_connections:
-            await connection[0].send_json(data)    
+            await connection.send_text(message)
+            print('message ',message)
+ 
 
-manager = SocketManager()
+manager = ConnectionManager()
 
-@app.websocket("/sio")
-async def chat(websocket: WebSocket):
-    await websocket.accept()
-    while True:
-        data = await websocket.receive_text()
-        action = data.get("action")
-        if action == "join":
-            await manager.connect(websocket, data.get("user"))
-            await manager.broadcast({"action": "join", "user": data.get("user")})
-        elif action == "startTimer":
-            await manager.broadcast({"action": "startTimer"})
-        elif action == "stopTimer":
-            await manager.broadcast({"action": "stopTimer"})
-        elif action == "disconnect":
-            await manager.disconnect(websocket, data.get("user"))
-            await manager.broadcast({"action": "disconnect", "user": data.get("user")})
-        else:
-
-            await websocket.send_text(f"Message text was: {data}")
-
-
-
+@app.websocket("/ws/{username}")
+async def websocket_endpoint(websocket: WebSocket, username: str):
+    await manager.connect(websocket)
+    try:
+        while True:
+            data = await websocket.receive_text()
+            await manager.broadcast(data)
+    except WebSocketDisconnect:
+        manager.disconnect(websocket)
+        await manager.broadcast(f"User {username} left the chat")
 
 if __name__ == "__main__":
     import uvicorn

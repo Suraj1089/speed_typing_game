@@ -58,7 +58,7 @@ const getwpm = () => {
         let speed = 0;
         // loop through history array to find highest speed
         historyArray.forEach((item) => {
-            speed =  Math.ceil((item.char / 5) / (item.timeSession));
+            speed = Math.ceil((item.char / 5) / (item.timeSession));
             // if speed is higher than highest speed, set it as highest speed
             if (speed > highestSpeed) {
                 highestSpeed = speed;
@@ -68,7 +68,7 @@ const getwpm = () => {
     } else {
         // if user has no history, return 0
         return 0;
-        
+
     }
 };
 
@@ -89,36 +89,36 @@ function getDiffLevel() {
 
 // getting time choosed by user
 const getTime = () => {
-    if (onemin.checked){
+    if (onemin.checked) {
         selectedTime = 1
         return selectedTime;
     }
-    else if (twomin.checked){
+    else if (twomin.checked) {
         selectedTime = 2
         return selectedTime;
     }
-    else if (fivemin.checked){
+    else if (fivemin.checked) {
         selectedTime = 5
         return selectedTime;
     }
-    else if (tenmin.checked){
+    else if (tenmin.checked) {
         selectedTime = 10
         return selectedTime;
     }
-    else if (tmin.checked){
+    else if (tmin.checked) {
         selectedTime = 30
         return selectedTime;
     }
-    else if (xitymin.checked){
+    else if (xitymin.checked) {
         selectedTime = 60
         return selectedTime;
     }
     // check infinit input text is not empty
-    else if (infinit.value != null && infinit.value != ""){
+    else if (infinit.value != null && infinit.value != "") {
         selectedTime = infinit.value
         return selectedTime;
     }
-    else{
+    else {
         return 0;
     }
 };
@@ -215,16 +215,6 @@ document.getElementById("levelSelector").addEventListener("click", (e) => {
     }
 })
 
-// // function to start typing session after pressing space key 
-// document.addEventListener('keypress', (e) => {
-//     if (e.code === "Space") {
-//         if (startBtn.style.display !== "none")
-//             startBtn.click();
-//         else if (userInput.style.display === "none")
-//             resetBtn.click();
-//     }
-// })
-
 // function to automatically click on submit button with Enter key
 nameInput.addEventListener('keypress', (e) => {
     if (e.code === "Enter")
@@ -245,10 +235,10 @@ const saveHistory = () => {
     if (history) {
         // parse the history and push the new session
         historyArray = JSON.parse(history);
-        historyArray.push({ char:char_you_typed, difficultyLevel: selectedDifficultyLevel, timeSession: selectedTime });
+        historyArray.push({ char: char_you_typed, difficultyLevel: selectedDifficultyLevel, timeSession: selectedTime });
         localStorage.setItem("typerHistory", JSON.stringify(historyArray));
     }
     else {
-        localStorage.setItem("typerHistory", JSON.stringify([{ char:char_you_typed, difficultyLevel: selectedDifficultyLevel, timeSession: selectedTime }]));
+        localStorage.setItem("typerHistory", JSON.stringify([{ char: char_you_typed, difficultyLevel: selectedDifficultyLevel, timeSession: selectedTime }]));
     }
 }

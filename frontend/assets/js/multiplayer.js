@@ -33,13 +33,7 @@ const typingText = document.querySelector(".typing-text p"),
 accuracyTag = document.querySelector(".accuracy span");
 
 let timer,
-    // maxTime = 100,
-    // get maxTime from url
-    // window.location.href = `/practice/typing?difficulty=${difficultyLevel}&time=${typingTime}`;
-    // maxTime = window.location.href.split("=")[2],
-    // get integer from string
-    // maxTime = parseInt(window.location.href.split("=")[2]) * 60,
-    charIndex = mistakes = isTyping = 0;
+charIndex = mistakes = isTyping = 0;
 const params = new URLSearchParams(new URL(window.location.href).search);
 var maxTime = parseInt(params.get('time'));
 var difficultyLevel = params.get('difficulty');
@@ -64,43 +58,36 @@ function loadParagraph() {
     typingText.addEventListener("click", () => inpField.focus());
 }
 
+// Assume that 'maxTime' and 'timeLeft' are initialized and updated correctly.
+
+
 function initTyping() {
     let characters = typingText.querySelectorAll("span");
-    let typedChar = inpField.value.split("")[charIndex];
+    let typedChar = inpField.value[charIndex];
 
-    if (charIndex < characters.length - 1 && timeLeft > 0) {
+    if (charIndex < characters.length && timeLeft > 0) {
         if (!isTyping) {
             timer = setInterval(initTimer, 1000);
             isTyping = true;
         }
 
-        if (typedChar == null) {
-            if (charIndex > 0) {
-                charIndex--;
-                if (characters[charIndex].classList.contains("incorrect")) {
-                    mistakes--;
-                }
-                characters[charIndex].classList.remove("correct", "incorrect");
-            }
+        if (typedChar !== characters[charIndex].innerText) {
+            mistakes++; // Count the mistake only when the character doesn't match
+            characters[charIndex].classList.add("incorrect");
         } else {
-            if (characters[charIndex].innerText == typedChar) {
-                characters[charIndex].classList.add("correct");
-            } else {
-                mistakes++;
-                characters[charIndex].classList.add("incorrect");
-            }
-            charIndex++;
+            characters[charIndex].classList.add("correct");
         }
 
         characters.forEach(span => span.classList.remove("active"));
-        characters[charIndex].classList.add("active");
+        charIndex++;
+        if (charIndex < characters.length) {
+            characters[charIndex].classList.add("active");
+        }
 
-        let wpm = Math.round(((charIndex - mistakes) / 5) / (maxTime - timeLeft) * 60);
-        wpm = wpm < 0 || !wpm || wpm === Infinity ? 0 : wpm;
-
+        let wpm = Math.round((charIndex - mistakes) / 5 / (maxTime - timeLeft) * 60);
+        wpm = Math.max(0, wpm); // Ensure WPM is not negative
         let cpm = charIndex - mistakes;
-        let totalCharacters = characters.length - 1; // Excluding the last empty span
-        let accuracy = Math.round((cpm / totalCharacters) * 100);
+        let accuracy = Math.round((cpm / characters.length) * 100);
 
         wpmTag.innerText = wpm;
         mistakeTag.innerText = mistakes;
@@ -108,9 +95,18 @@ function initTyping() {
         accuracyTag.innerText = accuracy + "%";
     } else {
         clearInterval(timer);
+        isTyping = false;
         inpField.value = "";
+
+        // Reset the 'charIndex' and clear styling classes
+        charIndex = 0;
+        characters.forEach(span => span.classList.remove("active", "correct", "incorrect"));
+
+        // Provide feedback to the user when the typing challenge is completed
+        typingText.innerHTML = "<span class='completed'>" + typingText.textContent + "</span>";
     }
 }
+
 
 
 function initTimer() {

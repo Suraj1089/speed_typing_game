@@ -34,29 +34,12 @@ const getUserName = () => {
 // call the function
 getUserName();
 
-// To encode the string
-// function htmlEncode(str) {
-//     return String(str).replace(/[^\w. ]/gi, function(c) {
-//         return '&#' + c.charCodeAt(0) + ';';
-//     });
-//   }
+
 
 let history = [];
 // let historyArray = [];
 
-// History Saver
-// const saveHistory = () => {
-//     history = localStorage.getItem("typerHistory");
-//     if (history) {
-//         historyArray = JSON.parse(history);
-//         historyArray.push({ speed:speed_word_pm, difficultyLevel: selectedDifficultyLevel, timeSession: selectedTime  });
-//         localStorage.setItem("typerHistory", JSON.stringify(historyArray));
-//     }
-//     else {
-//         localStorage.setItem("typerHistory", JSON.stringify([{ speed:speed_word_pm, difficultyLevel: selectedDifficultyLevel, timeSession: selectedTime  }]));
-//     }
-//     showHistory();
-// }
+
 
 // Get History Table Elements
 const historyBody = document.getElementById("historyTableBody");
