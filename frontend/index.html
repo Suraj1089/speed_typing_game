@@ -1,77 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <!-- Meta Tags -->
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <!-- Linking Assets -->
-        <link rel="shortcut icon" href="{{ url_for('static', path='/images/timer.png') }}" type="image/x-icon">
-        <link rel="stylesheet" href="{{ url_for('static', path='/css/index.css') }}">
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <!-- Linking Assets -->
+    <link rel="shortcut icon" href="{{ url_for('static', path='/images/timer.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/index.css') }}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
-        <!-- Title -->
-        <title>Typing Test : Test and practice your typing skills</title>
-    </head>
+    <!-- Title -->
+    <title>Typing Test : Test and practice your typing skills</title>
+</head>
 
-    <body onresize="display()" class="index">
-        <!-- Navigation Bar -->
-        <nav>
-            <div style="background-color: rgb(61, 61, 61);" class="navbar">
-                <!-- Website Brand/Logo -->
-                <div class="brand">
-                    <a href="/" class="brand-name">Typing Test</a>
-                </div>
-                <!-- Navigation Links (Centered) -->
-                <div class="navigation">
-                    <ul class="main-menu">
-                        <li class="nav-item"><a href="/practice" class="nav-item-link"><i class="fas fa-keyboard"></i> Practice</a></li>
-                        <li class="nav-item"><a href="/about" class="nav-item-link"><i class="fas fa-info-circle"></i> About</a></li>
-                        <li class="nav-item"><a href="/profile" class="nav-item-link"><i class="fas fa-user"></i> Profile</a></li>
-                        <li class="nav-item"><a href="/multiplayer" class="nav-item-link"><i class="fas fa-user"></i> multiplayer mode</a></li>
-                    </ul>
-                </div>
-                <!-- Github Repository Link -->
-             
-                <!-- Mobile Navigation Icon -->
-                <div class="mobile-nav">
-                    <div class="bar1"></div>
-                    <div class="bar2"></div>
-                    <div class="bar3"></div>
-                </div>
+<body onresize="display()" class="index" style="background-color: rgb(64, 76, 87);">
+    <!-- Navigation Bar -->
+    <nav>
+        <div style="background-color: rgb(61, 61, 61);" class="navbar">
+            <!-- Website Brand/Logo -->
+            <div class="brand">
+                <a href="/" class="brand-name">Typing Test</a>
             </div>
-        </nav>
-        <!-- End of Navigation Bar -->
+            <!-- Navigation Links (Centered) -->
+            <div class="navigation">
+                <ul class="main-menu">
+                    <li class="nav-item"><a href="/practice" class="nav-item-link"><i class="fas fa-keyboard"></i>
+                            Practice</a></li>
+                    <li class="nav-item"><a href="/about" class="nav-item-link"><i class="fas fa-info-circle"></i>
+                            About</a></li>
+                    <li class="nav-item"><a href="/profile" class="nav-item-link"><i class="fas fa-user"></i>
+                            Profile</a></li>
+                    <li class="nav-item"><a href="/multiplayer" class="nav-item-link"><i class="fas fa-user"></i>
+                            multiplayer mode</a></li>
+                </ul>
+            </div>
+            <!-- Github Repository Link -->
 
-        <main>
+            <!-- Mobile Navigation Icon -->
+            <div class="mobile-nav">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+        </div>
+    </nav>
+    <!-- End of Navigation Bar -->
 
-            <!-- Webstie Description -->
-            <section id="hero">
-                <div class="left-section">
-                    <h1>Master Your Typing skill</h1>
-                    <!-- <a href="./practice.html" class="heroBtn test"> Test Skills <span>&RightArrowBar;</span></a> -->
-                    <a href="/practice" class="heroBtn practice"> Go to Practice </a>
-                </div>
-                <div class="right-section">
-                    <img src="{{ url_for('static', path='/images/heroImage.jpg') }}" alt="Women Typing on the computer. Image by christina morillo">
-                </div>
-            </section>
-            <!-- End of Website Description -->
+    <main>
 
-          
-        </main>
+        <!-- Webstie Description -->
+        <section id="hero">
+            <div class="left-section">
+                <h1>Master Your Typing skill</h1>
+                <!-- <a href="./practice.html" class="heroBtn test"> Test Skills <span>&RightArrowBar;</span></a> -->
+                <a href="/practice" class="heroBtn practice"> Go to Practice </a>
+            </div>
+            <div class="right-section">
+                <img src="{{ url_for('static', path='/images/typing.jpg') }}"
+                    alt="Women Typing on the computer. Image by christina morillo">
+            </div>
+        </section>
+        <!-- End of Website Description -->
 
-        <!-- Footer -->
-        <footer>
-          
-        </footer>
-        <!-- End of Footer -->
 
-        <!-- Scripts -->
-        <script src="{{ url_for('static', path='/js/index.js') }}"></script>
+    </main>
 
-    </body>
+    <!-- Footer -->
+    <footer>
+
+    </footer>
+    <!-- End of Footer -->
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', path='/js/index.js') }}"></script>
+
+</body>
+
 </html>

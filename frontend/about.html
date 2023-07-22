@@ -1,82 +1,86 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 
-    <head>
-        <!-- Meta Tags -->
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <!-- Linking Assets -->
-        <link rel="shortcut icon" href="{{ url_for('static', path='/images/timer.png') }}" type="image/x-icon">
-        <link rel="stylesheet" href="{{ url_for('static', path='/css/index.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', path='/css/about.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', path='/css/dark.css') }}">
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-         
-        <!-- Title -->
-        <title>About Typing Test</title>
-    </head>
+    <!-- Linking Assets -->
+    <link rel="shortcut icon" href="{{ url_for('static', path='/images/timer.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/about.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/dark.css') }}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
-    <body class="light-mode">
-        <!-- Navigation Bar -->
-        <nav>
-            <div class="navbar">
-                <!-- Website Brand/Logo -->
-                <div class="brand">
-                    <a href="/" class="brand-name">Typing Test</a>
-                </div>
-                <!-- Navigation Links (Centered) -->
-                <div class="navigation">
-                    <ul class="main-menu">
-                        <li class="nav-item"><a href="/practice" class="nav-item-link"><i class="fas fa-keyboard"></i> Practice</a></li>
-                        <li class="nav-item"><a href="/about" class="nav-item-link"><i class="fas fa-info-circle"></i> About</a></li>
-                        <li class="nav-item"><a href="/profile" class="nav-item-link"><i class="fas fa-user"></i> Profile</a></li>
-                        <li class="nav-item"><a href="/multiplayer" class="nav-item-link"><i class="fas fa-user"></i> multiplayer mode</a></li>
-                    </ul>
-                </div>
-                <!-- Github Repository Link -->
-                <div class="nav-right">
-            
-                    <!-- Dark mode button -->
-                    <i id="icon1"  onclick="toggleLightDarkMode()" class="bx bx-moon dark-btn" style="font-size: x-large;"></i>     
-                </div>
-                <!-- Mobile Navigation Icon -->
-                <div class="mobile-nav">
-                    <div class="bar1"></div>
-                    <div class="bar2"></div>
-                    <div class="bar3"></div>
-                </div>
+    <!-- Title -->
+    <title>About Typing Test</title>
+</head>
+
+<body class="light-mode">
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="navbar">
+            <!-- Website Brand/Logo -->
+            <div class="brand">
+                <a href="/" class="brand-name">Typing Test</a>
             </div>
-        </nav>
-        <!-- End of Navigation Bar -->
+            <!-- Navigation Links (Centered) -->
+            <div class="navigation">
+                <ul class="main-menu">
+                    <li class="nav-item"><a href="/practice" class="nav-item-link"><i class="fas fa-keyboard"></i>
+                            Practice</a></li>
+                    <li class="nav-item"><a href="/about" class="nav-item-link"><i class="fas fa-info-circle"></i>
+                            About</a></li>
+                    <li class="nav-item"><a href="/profile" class="nav-item-link"><i class="fas fa-user"></i>
+                            Profile</a></li>
+                    <li class="nav-item"><a href="/multiplayer" class="nav-item-link"><i class="fas fa-user"></i>
+                            multiplayer mode</a></li>
+                </ul>
+            </div>
+            <!-- Github Repository Link -->
+            <div class="nav-right">
 
-        <!-- About Section -->
-        <div class="about about-about">
-            <h1 class="about-heading">About</h1>
-            <div class="subtitle">
-                <p >
-                   Typing test solo
-                </p>
-                <br>
+                <!-- Dark mode button -->
+                <i id="icon1" onclick="toggleLightDarkMode()" class="bx bx-moon dark-btn"
+                    style="font-size: x-large;"></i>
+            </div>
+            <!-- Mobile Navigation Icon -->
+            <div class="mobile-nav">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+        </div>
+    </nav>
+    <!-- End of Navigation Bar -->
 
-                <h2 class="about-heading">How it works</h2>
-                <p ">
+    <!-- About Section -->
+    <div class="about about-about">
+        <h1 class="about-heading">About</h1>
+        <div class="subtitle">
+            <p>
+                Typing test solo
+            </p>
+            <br>
+
+            <h2 class="about-heading">How it works</h2>
+            <p ">
                     enter username and start practice
                 </p>
             </div>
 
-            <a href="/practice" class="heroBtn practice"> Practice </a>
+            <a href=" /practice" class="heroBtn practice"> Practice </a>
         </div>
         <!-- End of About Section -->
 
         <!-- Footer -->
         <footer>
-           
+
         </footer>
         <!-- End of Footer -->
 
@@ -84,7 +88,6 @@
         <script src="{{ url_for('static', path='/js/index.js') }}"></script>
         <script src="{{ url_for('static', path='/js/dark.js') }}"></script>
 
-    </body>
+</body>
+
 </html>
-
-

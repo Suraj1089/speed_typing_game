@@ -23,7 +23,15 @@ This project is a simple speed typing game application where players can practic
 * JavaScript
 
 ## Setup
-download the project and run the following command in the terminal
+* clone the repository
+* go to backend folder
+* create a virtual environment using `python -m venv env`
+* activate the virtual environment using `env\Scripts\activate`
+* install the dependencies using `pip install -r requirements.txt`
+* go to src folder
+* run the server using `python main.py`
+
+
 
 
 ## Features
