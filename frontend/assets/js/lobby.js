@@ -69,6 +69,10 @@ $(document).ready(function () {
         usersInLobby.forEach((user) => {
           addUserToComponent(user);
         })
+
+        if(usersInLobby.length == 2) {
+          startTimer(1);
+        }
       },
       error: function (error) {
         console.log(error);

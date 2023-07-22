@@ -118,7 +118,8 @@ async def websocket_endpoint(websocket: WebSocket, username: str):
             await manager.broadcast(data)
     except WebSocketDisconnect:
         manager.disconnect(websocket)
-        await manager.broadcast(f"User {username} left the chat")
+        message = f'{"username":{username}, "action": "left"}'
+        await manager.broadcast(message)
 
 if __name__ == "__main__":
     import uvicorn

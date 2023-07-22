@@ -31,20 +31,12 @@ const typingText = document.querySelector(".typing-text p"),
 accuracyTag = document.querySelector(".accuracy span");
 
 let timer,
-    // maxTime = 100,
-    // get maxTime from url
-    // window.location.href = `/practice/typing?difficulty=${difficultyLevel}&time=${typingTime}`;
-    // maxTime = window.location.href.split("=")[2],
-    // get integer from string
-    // maxTime = parseInt(window.location.href.split("=")[2]) * 60,
-    charIndex = mistakes = isTyping = 0;
+ 
+charIndex = mistakes = isTyping = 0;
 const params = new URLSearchParams(new URL(window.location.href).search);
 var maxTime = parseInt(params.get('time')) * 60;
 var difficultyLevel = params.get('difficulty');
 var timeLeft = maxTime;
-
-
-console.log('dffiucitly ' + difficultyLevel);
 
 function loadParagraph() {
 

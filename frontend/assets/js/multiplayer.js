@@ -42,11 +42,7 @@ var timeLeft = maxTime;
 
 
 function loadParagraph() {
-    console.log('time lef t ' + timeLeft);
-
-    // to load paragraph make request to http://localhost:8000/loadparagraph
-
-
+    
     const ranIndex = Math.floor(Math.random() * paragraphs.length);
     typingText.innerHTML = "";
     paragraphs[ranIndex].split("").forEach(char => {
@@ -63,31 +59,41 @@ function loadParagraph() {
 
 function initTyping() {
     let characters = typingText.querySelectorAll("span");
-    let typedChar = inpField.value[charIndex];
+    let typedChar = inpField.value.split("")[charIndex];
 
-    if (charIndex < characters.length && timeLeft > 0) {
+    if (charIndex < characters.length - 1 && timeLeft > 0) {
         if (!isTyping) {
             timer = setInterval(initTimer, 1000);
             isTyping = true;
         }
 
-        if (typedChar !== characters[charIndex].innerText) {
-            mistakes++; // Count the mistake only when the character doesn't match
-            characters[charIndex].classList.add("incorrect");
+        if (typedChar == null) {
+            if (charIndex > 0) {
+                charIndex--;
+                if (characters[charIndex].classList.contains("incorrect")) {
+                    mistakes--;
+                }
+                characters[charIndex].classList.remove("correct", "incorrect");
+            }
         } else {
-            characters[charIndex].classList.add("correct");
+            if (characters[charIndex].innerText == typedChar) {
+                characters[charIndex].classList.add("correct");
+            } else {
+                mistakes++;
+                characters[charIndex].classList.add("incorrect");
+            }
+            charIndex++;
         }
 
         characters.forEach(span => span.classList.remove("active"));
-        charIndex++;
-        if (charIndex < characters.length) {
-            characters[charIndex].classList.add("active");
-        }
+        characters[charIndex].classList.add("active");
 
-        let wpm = Math.round((charIndex - mistakes) / 5 / (maxTime - timeLeft) * 60);
-        wpm = Math.max(0, wpm); // Ensure WPM is not negative
+        let wpm = Math.round(((charIndex - mistakes) / 5) / (maxTime - timeLeft) * 60);
+        wpm = wpm < 0 || !wpm || wpm === Infinity ? 0 : wpm;
+
         let cpm = charIndex - mistakes;
-        let accuracy = Math.round((cpm / characters.length) * 100);
+        let totalCharacters = characters.length - 1; // Excluding the last empty span
+        let accuracy = Math.round((cpm / totalCharacters) * 100);
 
         wpmTag.innerText = wpm;
         mistakeTag.innerText = mistakes;
@@ -95,15 +101,7 @@ function initTyping() {
         accuracyTag.innerText = accuracy + "%";
     } else {
         clearInterval(timer);
-        isTyping = false;
         inpField.value = "";
-
-        // Reset the 'charIndex' and clear styling classes
-        charIndex = 0;
-        characters.forEach(span => span.classList.remove("active", "correct", "incorrect"));
-
-        // Provide feedback to the user when the typing challenge is completed
-        typingText.innerHTML = "<span class='completed'>" + typingText.textContent + "</span>";
     }
 }
 
@@ -137,7 +135,7 @@ function initTimer() {
 function resetGame() {
     loadParagraph();
     clearInterval(timer);
-    timeLeft = 100;
+    timeLeft = maxTime;
     charIndex = mistakes = isTyping = 0;
     inpField.value = "";
     timeTag.innerText = timeLeft + "s";
