@@ -42,7 +42,11 @@ var timeLeft = maxTime;
 
 
 function loadParagraph() {
-    
+    console.log('time lef t ' + timeLeft);
+
+    // to load paragraph make request to http://localhost:8000/loadparagraph
+
+
     const ranIndex = Math.floor(Math.random() * paragraphs.length);
     typingText.innerHTML = "";
     paragraphs[ranIndex].split("").forEach(char => {
@@ -135,7 +139,7 @@ function initTimer() {
 function resetGame() {
     loadParagraph();
     clearInterval(timer);
-    timeLeft = maxTime;
+    timeLeft = 100;
     charIndex = mistakes = isTyping = 0;
     inpField.value = "";
     timeTag.innerText = timeLeft + "s";
@@ -168,7 +172,7 @@ $(document).ready(function () {
         },
         error: function (err) {
             // Handle any errors that occur during the AJAX request
-            alert("Failed to load the paragraph. loading default paragraph" + String(err.data));
+            alert("Failed to load the paragraph. try to join again" + String(err.data));
             paragraphs = defaultPara;
             window.location.href = '/multiplayer'
 

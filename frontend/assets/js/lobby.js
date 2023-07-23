@@ -1,11 +1,15 @@
+var permission = false;
+
 $(document).ready(function () {
+
+  
   
   var usersInLobby = []; // Array to store the list of users in the lobby
   var lobby_id = getLobbyIdFromURL();
   var username = getUserNameFromUrl();
   
   // var socket = new WebSocket(`ws://localhost:8000/ws/?${username}`);
-  var socket = new WebSocket(`ws://localhost:8000/ws/${username}`);
+  var socket = new WebSocket(`ws://localhost:8000/ws/${username}/${lobby_id}`);
 
   // Function to get lobby_id from URL query parameters
   function getLobbyIdFromURL() {
@@ -71,7 +75,12 @@ $(document).ready(function () {
         })
 
         if(usersInLobby.length == 2) {
+          permission = true;
           startTimer(1);
+        } else {
+          alert("Waiting for another player to join...");
+          permission = false;
+
         }
       },
       error: function (error) {

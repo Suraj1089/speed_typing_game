@@ -1,5 +1,5 @@
 # main.py
-from fastapi import FastAPI, Request, Depends
+from fastapi import FastAPI, Request, APIRouter
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
@@ -10,8 +10,6 @@ from fastapi import WebSocket,WebSocketDisconnect
 from typing import List
 import json
 import requests
-
-import os
 app = FastAPI()
 
 
@@ -80,7 +78,7 @@ def multiplayer_lobby(request: Request,time: int = 60, difficulty: str = "Easy",
 
 @app.on_event("startup")
 async def startup_event():
-    app.mongodb_client = MongoClient(os.getenv('MONGO_URL'))
+    app.mongodb_client = MongoClient('mongodb+srv://suraj:suraj@cluster0.fswur.mongodb.net/?retryWrites=true&w=majority')
     app.database = app.mongodb_client["tallycode"]
 
 

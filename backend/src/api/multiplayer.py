@@ -6,12 +6,14 @@ from utils.schemas.multiplayer import LobbyBase
 from fastapi.encoders import jsonable_encoder
 import uuid
 from bson import ObjectId
+from fastapi.responses import JSONResponse
+from bson.objectid import ObjectId
 from datetime import timedelta,datetime
 
 
 router = APIRouter()
 
-
+# ge
 @router.get('/getlobbies', status_code=status.HTTP_200_OK)
 def get_lobbies(request: Request,limit: int = 10):
     lobbies = request.app.database['lobbies'].find({})
@@ -67,8 +69,7 @@ def get_players(request: Request,lobby_id: str = "lobby"):
     return {
         "players": players_list
     }
-from fastapi.responses import JSONResponse
-from bson.objectid import ObjectId
+
 
 @router.get('/gamestatus', status_code=status.HTTP_200_OK)
 def game_status(request: Request, lobby_id: str,time: int,timer: int):

@@ -38,6 +38,8 @@ var maxTime = parseInt(params.get('time')) * 60;
 var difficultyLevel = params.get('difficulty');
 var timeLeft = maxTime;
 
+
+
 function loadParagraph() {
 
     // to load paragraph make request to http://localhost:8000/loadparagraph
