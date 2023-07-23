@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request, Depends
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
-from api import paragraphs,multiplayer
+from api import paragraphs,multiplayer,renders
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
 from fastapi import WebSocket,WebSocketDisconnect
@@ -16,6 +16,7 @@ app = FastAPI()
 
 app.include_router(paragraphs.router)
 app.include_router(multiplayer.router)
+app.include_router(renders.router)
 origins = [
     "*",
 ]
@@ -34,47 +35,6 @@ templates = Jinja2Templates(directory="../../frontend")
 # Mount the "static" directory to serve static files like CSS and JavaScript
 app.mount("/static", StaticFiles(directory="../../frontend/assets"), name="static")
 
-
-
-
-@app.get("/", response_class=HTMLResponse)
-async def home(request: Request):
-    # Render the home.html template
-    return templates.TemplateResponse("index.html", {"request": request})
-
-@app.get("/practice", response_class=HTMLResponse)
-async def home(request: Request):
-    # Render the home.html template
-    return templates.TemplateResponse("practice.html", {"request": request})
-
-@app.get('/about',response_class=HTMLResponse)
-async def about(request: Request):
-    return templates.TemplateResponse('about.html', {"request": request})
-
-@app.get('/profile',response_class=HTMLResponse)
-async def about(request: Request):
-    return templates.TemplateResponse('profile.html', {"request": request})
-
-@app.get('/testimonials',response_class=HTMLResponse)
-async def about(request: Request):
-    return templates.TemplateResponse('testimonials.html', {"request": request})
-
-@app.get('/practice/typing',response_class=HTMLResponse)
-async def about(request: Request):
-    return templates.TemplateResponse('typing.html', {"request": request})
-
-
-@app.get('/multiplayer', response_class=HTMLResponse)
-def multiplayer_mode(request: Request):
-    # lobbiaes = requests.get('http://localhost:8000/getlobbies').json()
-    # print(lobbies)
-    return templates.TemplateResponse('multiplayer.html',{"request": request})
-
-
-@app.get('/multiplayer/typing', response_class=HTMLResponse)
-def multiplayer_lobby(request: Request,time: int = 60, difficulty: str = "Easy",lobby_id: str = "Easy one",username: str = None):
-    return templates.TemplateResponse('multiplayer_lobby.html',{"request": request, "lobby_id": lobby_id
-    , "time": time, "difficulty": difficulty, "username": username})
 
 
 @app.on_event("startup")

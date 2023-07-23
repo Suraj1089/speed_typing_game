@@ -1,17 +1,17 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List
 
 
 
 class PlyerBase(BaseModel):
-    _id: str 
+    pass 
 
 
 class PlayerCreate(PlyerBase):
     username: str 
-    accurency: int = 0
-    wpm: int = 0
-    cpm: int = 0
+    accurency: int = Field(gt=0,lt=100)
+    wpm: int = Field(gt=0)
+    cpm: int = Field(gt=0)
 
 
 class LobbyBase(BaseModel):
@@ -21,7 +21,7 @@ class LobbyBase(BaseModel):
 class LobbyCreate(LobbyBase):
     name: str
     time: int
-    difficulty: str 
+    difficulty: str = Field(default='Easy')
     players: List[PlayerCreate] = []
 
 
