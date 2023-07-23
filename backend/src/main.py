@@ -14,7 +14,6 @@ import requests
 import os
 app = FastAPI()
 
-
 app.include_router(paragraphs.router)
 app.include_router(multiplayer.router)
 origins = [
@@ -80,7 +79,7 @@ def multiplayer_lobby(request: Request,time: int = 60, difficulty: str = "Easy",
 
 @app.on_event("startup")
 async def startup_event():
-    app.mongodb_client = MongoClient(os.getenv('MONGO_URL'))
+    app.mongodb_client = MongoClient(os.getenv('MONGODB_URL'))
     app.database = app.mongodb_client["tallycode"]
 
 

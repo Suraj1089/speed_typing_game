@@ -1,5 +1,8 @@
 from motor import motor_asyncio
 import os 
+import asyncio
 
-
-client = motor_asyncio.AsyncIOMotorClient('mongodb://localhost:27017')
+# return a database object
+# access any collection by client.collection_name
+client = motor_asyncio.AsyncIOMotorClient(os.getenv('MONGODB_URL'))
+db = client.tallycode
