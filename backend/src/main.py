@@ -8,8 +8,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
 from fastapi import WebSocket,WebSocketDisconnect
 from typing import List
-import json
-import requests
 
 import os
 app = FastAPI()
